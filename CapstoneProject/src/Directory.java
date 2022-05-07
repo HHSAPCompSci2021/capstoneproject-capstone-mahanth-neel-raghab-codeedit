@@ -1,16 +1,23 @@
 import java.util.ArrayList;
 
 import java.io.File;
-import java.util.List;
 
 public class Directory {
-    private List<File> files;
+    private File[] files;
 
-    public Directory(String dirName) {
-
+    public Directory(String dirPath) {
+		loadFiles(dirPath);
     }
 
-    public List<File> getNameList() {
-        return null;
+	private void loadFiles(String dirPath) {
+		File dir = new File(dirPath);
+		String[] fnames = dir.list();
+		for (int i = 0; i < fnames.length; i++) {
+			files[i] = new File(fnames[i]);
+		}
+	}
+
+    public File[] getFiles() {
+        return files;
     }
 }
