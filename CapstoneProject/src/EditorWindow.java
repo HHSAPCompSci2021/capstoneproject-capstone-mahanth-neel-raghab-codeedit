@@ -36,6 +36,7 @@ public class EditorWindow extends JFrame implements ActionListener {
     	m1.add(o2);
     	m1.add(o3);
     	m1.add(o4);
+    	options.add(m1);
     	f.setJMenuBar(options);
     	f.add(textArea);
     	f.setSize(850, 500);
