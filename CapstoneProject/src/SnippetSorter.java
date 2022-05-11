@@ -1,10 +1,10 @@
 import java.util.Map;
 import java.util.HashMap;
 
-public class SnippetScraper {
+public class SnippetSorter {
     private Map<Suggestion, Integer> suggestions;
 
-    public SnippetScraper(String[] suggestions) {
+    public SnippetSorter(String[] suggestions, int[] commitCount) {
         suggestions = null;
     }
 

@@ -4,5 +4,4 @@ public class Main {
 		EditorWindow window;
 		window = new EditorWindow();
 	}
-
 }
