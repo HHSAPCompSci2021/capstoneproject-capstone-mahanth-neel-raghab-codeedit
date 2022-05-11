@@ -1,63 +1,53 @@
+import java.io.BufferedReader;
+
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.awt.*;
+import javax.swing.*;
+import java.io.*;
+import java.awt.ActiveEvent.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class EditorWindow {
-    private Directory d;
-    private File f;
-
-    public EditorWindow(File f) {
-		this.f = f;
+public class EditorWindow extends JFrame implements ActionListener {
+	private JFrame f;
+	private JTextArea textArea;
+	private JMenuBar options;
+	
+	
+    public EditorWindow() {
+    	f = new JFrame("Code Editor");
+    	textArea = new JTextArea(200, 400);
+    	options = new JMenuBar();
+    	JMenu m1 = new JMenu("File");
+    	JMenuItem o1 = new JMenuItem("New");
+    	JMenuItem o2 = new JMenuItem("Save");
+    	JMenuItem o3 = new JMenuItem("Open");
+    	JMenuItem o4 = new JMenuItem("Close");
+    	o1.addActionListener(this);
+    	o2.addActionListener(this);
+    	o3.addActionListener(this);
+    	o4.addActionListener(this);
+    	m1.add(o1);
+    	m1.add(o2);
+    	m1.add(o3);
+    	m1.add(o4);
+    	f.setJMenuBar(options);
+    	f.add(textArea);
+    	f.setSize(850, 500);
+    	f.setVisible(true);
     }
 
-	public EditorWindow(Directory projectDir) {
-		dir = projectDir;
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
-    public boolean saveFile() {
-        return false;
-    }
 
-	// This method takes a file name as an argument. 
-	// It then returns the data contained in the file as a String.
-	public String readFile(String inputFile) {
-		FileReader fr = null;
 
-		try {
-			fr = new FileReader(inputFile);
-		} catch (FileNotFoundException fnfe) {
-			fnfe.printStackTrace();
-		}
-
-		BufferedReader br = new BufferedReader(fr);
-		String result = "";
-
-		String line = "";
-		try {
-			while ((line = br.readLine()) != null) {
-				result += line + System.lineSeparator();
-			}
-		} catch (IOException ie) {
-			ie.printStackTrace();
-		}
-
-		return result;
-	}
-
-	// This method takes a file name and a data String as arguments. 
-	// A file is written to the disk using the filename given and containing the data String.
-	public void writeFile(String data, String outputFile) {
-		FileWriter writer = null;
-
-		try {
-			writer = new FileWriter(outputFile);	
-		} catch (IOException ie) {
-			ie.printStackTrace();
-		}
-
-		BufferedWriter bw = new BufferedWriter(writer);
-		try {
-			bw.write(data);
-		} catch (IOException ie) {
-			ie.printStackTrace();
-		}
-	}
 }

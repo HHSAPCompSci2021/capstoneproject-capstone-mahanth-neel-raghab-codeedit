@@ -1,10 +1,8 @@
 
 public class Main {
-	private GitScraper scraper;
-	private SnippetScraper sorter;
-	private EditorWindow window;
 	public static void main(String[] args) {
-
+		EditorWindow window;
+		window = new EditorWindow();
 	}
 
 }
