@@ -1,3 +1,5 @@
+package autocomp;
+
 public class Suggestion {
     private String name;
    	private String[] params;
