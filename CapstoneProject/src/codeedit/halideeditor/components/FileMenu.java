@@ -2,8 +2,6 @@ package codeedit.halideeditor.components;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JMenuItem;
-
 public class FileMenu extends Menu {
 
     public static final String NEW_FILE = "New";

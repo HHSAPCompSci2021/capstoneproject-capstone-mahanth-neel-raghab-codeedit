@@ -4,24 +4,30 @@ import java.io.File;
 
 public class EditorFile {
 
-    private String name;
     private String path;
     // private boolean isSaved;
    
-    public EditorFile(String name, String path) {
-        this.name = name;
+    public EditorFile(String path) {
         this.path = path;
     }
 
     public EditorFile(File file) {
-        this(file.getName(), file.getPath());
+        this(file.getPath());
     }
 
     public String getName() {
-        return name;
+        return path.substring(path.lastIndexOf("/") + 1);
     }
 
     public String getPath() {
         return path;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if(other.getClass() != this.getClass()) return false;
+        EditorFile otherFile = (EditorFile) other;
+        return (otherFile.path.equals(this.path));
+    }
+
 }

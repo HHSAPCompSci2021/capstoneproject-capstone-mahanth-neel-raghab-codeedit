@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"<Unnamed>","l":"Directory"},{"p":"<Unnamed>","l":"EditorWindow"},{"p":"<Unnamed>","l":"GitScraper"},{"p":"<Unnamed>","l":"Main"},{"p":"<Unnamed>","l":"SnippetScraper"},{"p":"<Unnamed>","l":"Suggestion"}];updateSearchResults();

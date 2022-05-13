@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"codeedit.halideeditor.components"},{"l":"codeedit.halideeditor.core"},{"l":"codeedit.halideeditor.logic"},{"l":"codeedit.halideeditor.models"},{"l":"codeedit.halideeditor.utils"}];updateSearchResults();

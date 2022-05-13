@@ -7,12 +7,11 @@ import codeedit.halideeditor.components.FileMenu;
 import codeedit.halideeditor.components.FileTabPane;
 import codeedit.halideeditor.components.JavaFileChooser;
 import codeedit.halideeditor.components.MenuBar;
-import codeedit.halideeditor.utils.FileIOUtils;
+import codeedit.halideeditor.models.EditorFile;
 import codeedit.halideeditor.utils.NativeOSUtils;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 public class EditorWindow extends JFrame implements ActionListener {
 
@@ -43,8 +42,8 @@ public class EditorWindow extends JFrame implements ActionListener {
             case FileMenu.OPEN_FILE: {
                 JavaFileChooser chooser = new JavaFileChooser();
                 if (chooser.showOpenDialog(null) != JavaFileChooser.APPROVE_OPTION) return;
-                File file = chooser.getSelectedFile();
-                fileTabPane.addFileTab(file.getName(), FileIOUtils.readFile(file.getPath()));
+                EditorFile file = new EditorFile(chooser.getSelectedFile());
+                fileTabPane.addFileTab(file);
                 break;
             }
 
