@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class SnippetSorter {
 		ArrayList<Suggestion> suggestions;
-	//ArrayList<Integer> occurences;
+	// ArrayList<Integer> occurences;
 		TreeMap<Suggestion, Integer> suggestions2;
     public SnippetSorter(Suggestion[] suggs, int[] nums) {
         this.suggestions = new ArrayList<>();
@@ -42,7 +42,7 @@ public class SnippetSorter {
     		}
     	}
     	System.out.println(s+"-");
-    	if (s.isBlank()) 
+    	if (s.trim().isEmpty()) 
     		return;
     	String l="";
     	for (int i=text.indexOf(s);i!=-1;i=text.indexOf(s,i+1)) {
