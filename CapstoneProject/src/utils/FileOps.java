@@ -8,8 +8,12 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 
 public class FileOps {
-	// This method takes a file name as an argument. 
-	// It then returns the data contained in the file as a String.
+	/**
+	 * This method takes a file name as an argument. T
+	 * It then returns the data contained in the file as a String.
+	 * @param inputFile The input file to read from
+	 * @return String the contents of the file
+	 */
 	public static String readFile(File inputFile) {
 		FileReader fr = null;
 
@@ -35,8 +39,12 @@ public class FileOps {
 		return result;
 	}
 
- 	// This method takes a file name as an argument. 
-	// It then returns the data contained in the file as a String.
+	/**
+	 * This method takes a file name as an argument. 
+	 * It then returns the data contained in the file as a String.
+	 * @param data The data to write to the outFile
+	 * @param outFile The target file for the data to be written to
+	 */
 	public static void writeFile(String data, File outFile) {
         FileWriter fw = null;
         BufferedWriter writer = null;

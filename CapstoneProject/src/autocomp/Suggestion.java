@@ -26,5 +26,4 @@ public class Suggestion {
 	public String[] getReturnValues() {
 		return returnValues;
 	}
-
 }

@@ -5,24 +5,28 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.plaf.metal.MetalTextFieldUI;
+import javax.swing.plaf.synth.SynthLookAndFeel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeModel;
 import utils.FileOps;
 
 public class EditorWindow extends JFrame implements ActionListener, Runnable {
 	private JTextArea textArea;
 	private JMenuBar options;
-	
+	private JTree fileHierarchyView;
+
     public EditorWindow() {
 		super("Code Editor");
-		textArea = new JTextArea(200, 400);
-		textArea.setUI(new MetalTextFieldUI());
+		textArea = new JTextArea(300, 500);
     	options = new JMenuBar();
-    	JMenu m1 = new JMenu("File");
+		fileHierarchyView = new JTree();
+		JMenu m1 = new JMenu("File");
 		JMenuItem[] fileOptions = new JMenuItem[] {
 			new JMenuItem("New"),
 			new JMenuItem("Save"),
 			new JMenuItem("Open"),
 			new JMenuItem("Close"),
+			new JMenuItem("Folder Structure"),
 			new JMenuItem("Autosave")
 		};
 
@@ -32,18 +36,13 @@ public class EditorWindow extends JFrame implements ActionListener, Runnable {
 		}
 
 		JMenu m2 = new JMenu("Run");
-		JMenuItem[] runOptions = new JMenuItem[] {
-			new JMenuItem("Run"),
-			new JMenuItem("Debug")
-		};
-
-		for (JMenuItem item : runOptions) {
-			item.addActionListener(this);
-			m2.add(item);
-		}
+		JMenuItem runItem = new JMenuItem("Run");
+		runItem.addActionListener(this);
+		m2.add(runItem);
 
 		JMenu m3 = new JMenu("Terminal");
 		JMenuItem terminalItem = new JMenuItem("New Terminal");
+		terminalItem.addActionListener(this);
 		m3.add(terminalItem);
 
     	options.add(m1);
@@ -83,11 +82,12 @@ public class EditorWindow extends JFrame implements ActionListener, Runnable {
 				autoSaveAction();
 				break;
 
-			case "Run":
+			case "Structure":
 
 				break;
 
-			case "Debug":
+			case "Run":
+
 				break;
 
 			case "New Terminal":
@@ -124,6 +124,18 @@ public class EditorWindow extends JFrame implements ActionListener, Runnable {
 	}
 
 	private void autoSaveAction() {
-		
+
+	}
+
+	private void structureAction() {
+
+	}
+
+	private void runAction() {
+
+	}
+
+	private void terminalAction() {
+
 	}
 }
