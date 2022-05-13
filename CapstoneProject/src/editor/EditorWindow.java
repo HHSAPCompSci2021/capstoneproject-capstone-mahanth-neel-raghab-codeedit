@@ -1,6 +1,7 @@
 package editor;
 
 import java.io.File;
+import java.util.Arrays;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -8,6 +9,8 @@ import java.awt.event.ActionListener;
 import javax.swing.plaf.synth.SynthLookAndFeel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
+
+import autocomp.SnippetSorter;
 import utils.FileOps;
 
 public class EditorWindow extends JFrame implements ActionListener, Runnable {
@@ -87,7 +90,10 @@ public class EditorWindow extends JFrame implements ActionListener, Runnable {
 				break;
 
 			case "Run":
-
+				SnippetSorter s = new SnippetSorter();
+				s.fill(textArea);
+				s.sortResults();
+				System.out.println(Arrays.toString(s.getSuggestions(5)));
 				break;
 
 			case "New Terminal":
