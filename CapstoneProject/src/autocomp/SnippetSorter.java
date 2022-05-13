@@ -26,7 +26,6 @@ public class SnippetSorter {
     	suggestions2=new TreeMap<>();
     	suggestions = new ArrayList<>();
     }
-    
     public void fill(JTextArea j) {
     	suggestions2.clear();
     	String text = j.getText();
