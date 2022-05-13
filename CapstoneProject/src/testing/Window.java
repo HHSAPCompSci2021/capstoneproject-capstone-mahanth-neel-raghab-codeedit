@@ -17,9 +17,9 @@ public class Window extends JFrame {
         editor.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
         editor.setCodeFoldingEnabled(true);
 
-        LanguageSupportFactory languageSupportFactory = LanguageSupportFactory.get();
-        JavaLanguageSupport javaLanguageSupport = (JavaLanguageSupport) languageSupportFactory.getSupportFor(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        javaLanguageSupport.install(editor);
+        // LanguageSupportFactory languageSupportFactory = LanguageSupportFactory.get();
+        // JavaLanguageSupport javaLanguageSupport = (JavaLanguageSupport) languageSupportFactory.getSupportFor(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        // javaLanguageSupport.install(editor);
 
         RTextScrollPane scrollEditor = new RTextScrollPane(editor);
         
