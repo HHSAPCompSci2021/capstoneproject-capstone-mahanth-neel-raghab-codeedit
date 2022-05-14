@@ -18,5 +18,4 @@ public abstract class Menu extends JMenu {
         item.addActionListener(handler);
         add(item);
     }
-
 }

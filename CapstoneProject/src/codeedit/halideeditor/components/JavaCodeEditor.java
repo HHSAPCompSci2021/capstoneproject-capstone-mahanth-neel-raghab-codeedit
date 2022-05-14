@@ -27,5 +27,4 @@ public class JavaCodeEditor extends JPanel {
     public String getText() {
         return codeArea.getText();
     }
- 
 }

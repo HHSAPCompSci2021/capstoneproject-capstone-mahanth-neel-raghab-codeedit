@@ -1,6 +1,8 @@
 package codeedit.halideeditor.components;
 
+import javax.swing.JComponent;
 import javax.swing.JTabbedPane;
+import java.awt.Component;
 
 import codeedit.halideeditor.models.EditorFile;
 import codeedit.halideeditor.utils.FileIOUtils;
@@ -30,4 +32,12 @@ public class FileTabPane extends JTabbedPane {
         activeFiles.remove(removalIndex);
     }
 
+    public EditorFile getSelectedFile() {
+        int idx = getSelectedIndex();
+        return activeFiles.get(idx);
+    }
+
+    public Component getSelectedTab() {
+        return getTabComponentAt(getSelectedIndex());
+    }
 }
