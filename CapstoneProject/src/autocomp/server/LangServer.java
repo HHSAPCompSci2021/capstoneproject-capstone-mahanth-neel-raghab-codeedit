@@ -31,7 +31,7 @@ public class LangServer implements LanguageServer, LanguageClientAware {
 
     }
 
-    void initialized() {
+    public void initialized() {
 
     }
 
