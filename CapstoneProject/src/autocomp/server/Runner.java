@@ -18,7 +18,7 @@ public class Runner {
             InputStream incoming = sock.getInputStream();
             OutputStream sending = sock.getOutputStream();
             
-            LangServer lspServer = new LangServer();
+            AutocompServer lspServer = new AutocompServer();
             Launcher<LanguageClient> launcher = LSPLauncher.createServerLauncher(lspServer, incoming, sending);
 
             LanguageClient client = launcher.getRemoteProxy();

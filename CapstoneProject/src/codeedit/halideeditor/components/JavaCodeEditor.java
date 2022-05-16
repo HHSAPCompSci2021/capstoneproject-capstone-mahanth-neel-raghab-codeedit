@@ -9,22 +9,22 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 
 public class JavaCodeEditor extends JPanel {
 
-    private RSyntaxTextArea codeArea;
+    private RTextScrollPane codeEditor;
     
     public JavaCodeEditor() {
         super(new BorderLayout());
-        codeArea = new RSyntaxTextArea();
+        RSyntaxTextArea codeArea = new RSyntaxTextArea();
         codeArea.setSyntaxEditingStyle(SYNTAX_STYLE_JAVA);
         codeArea.setCodeFoldingEnabled(true);
-        RTextScrollPane codeEditor = new RTextScrollPane(codeArea); // TODO: Make field?
-        this.add(codeEditor);
+        codeEditor = new RTextScrollPane(codeArea); // TODO: Make field?
+        add(codeEditor);
     }
 
     public void setText(String data) {
-        codeArea.setText(data);
+        codeEditor.getTextArea().setText(data);
     }
 
     public String getText() {
-        return codeArea.getText();
+        return codeEditor.getTextArea().getText();
     }
 }

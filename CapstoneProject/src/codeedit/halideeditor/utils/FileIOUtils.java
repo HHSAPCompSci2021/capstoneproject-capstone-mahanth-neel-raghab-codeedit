@@ -41,6 +41,7 @@ public class FileIOUtils {
             for (Thread t : threads) {
                 t.join();
             }
+            threads[threads.length - 1].join();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException ie) {

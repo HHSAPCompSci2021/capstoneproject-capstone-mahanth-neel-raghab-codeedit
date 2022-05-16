@@ -1,9 +1,6 @@
 package codeedit.halideeditor.core;
 
 import javax.swing.JFrame;
-
-import org.fife.ui.rsyntaxtextarea.modes.JavaTokenMaker;
-
 import codeedit.halideeditor.components.EditMenu;
 import codeedit.halideeditor.components.FileMenu;
 import codeedit.halideeditor.components.FileTabPane;
@@ -16,10 +13,12 @@ import codeedit.halideeditor.utils.NativeOSUtils;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.awt.Component;
 
-public class EditorWindow extends JFrame implements ActionListener {
+public class EditorWindow extends JFrame implements ActionListener, KeyListener {
 
     private MenuBar menuBar;
     private FileTabPane fileTabPane;
@@ -106,4 +105,16 @@ public class EditorWindow extends JFrame implements ActionListener {
         }
     }
 
+    @Override
+    public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_S: {
+                
+                break;
+            }
+
+            default:
+                break;
+        }
+    }
 }
