@@ -22,7 +22,12 @@ public class FileTabPane extends JTabbedPane {
         JavaCodeEditor editor = new JavaCodeEditor();
         editor.setText(FileIOUtils.readFile(file.getPath()));
         addTab(file.getName(), new FileIcon(), editor);
-        setTabComponentAt(activeFiles.size() - 1, new CloseButton());
+        if (activeFiles.size() > 0) {
+            setTabComponentAt(activeFiles.size() - 1, new CloseButton());
+        } else {
+            setTabComponentAt(0, new CloseButton());
+        }
+       
         activeFiles.add(file);
     }
 

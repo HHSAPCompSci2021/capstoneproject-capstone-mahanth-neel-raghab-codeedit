@@ -6,6 +6,7 @@ import org.eclipse.lsp4j.services.LanguageClientAware;
 import org.eclipse.lsp4j.services.TextDocumentService;
 import org.eclipse.lsp4j.services.WorkspaceService;
 import org.eclipse.lsp4j.InitializeResult;
+import org.eclipse.lsp4j.CodeLensOptions;
 import org.eclipse.lsp4j.CompletionOptions;
 import org.eclipse.lsp4j.InitializeParams;
 import org.eclipse.lsp4j.ServerCapabilities;
@@ -30,10 +31,13 @@ public class AutocompServer implements LanguageServer, LanguageClientAware {
             folders.get(0).getUri();
         }
 
+        CodeLensOptions lensOptions = new CodeLensOptions();
+
         ServerCapabilities capabilities = new ServerCapabilities();
-        capabilities.setTextDocumentSync(TextDocumentSyncKind.Incremental);
+        capabilities.setTextDocumentSync(TextDocumentSyncKind.Full);
         capabilities.setCodeActionProvider(true);
-        capabilities.setCompletionProvider(new CompletionOptions(true, null);
+        capabilities.setCompletionProvider(new CompletionOptions(true, null));
+        capabilities.setCodeLensProvider(lensOptions);
 
         return CompletableFuture.completedFuture(new InitializeResult(capabilities));
     }
@@ -47,7 +51,7 @@ public class AutocompServer implements LanguageServer, LanguageClientAware {
     }
 
     public TextDocumentService getTextDocumentService() {
-        return 
+        
     }
 
     public WorkspaceService getWorkspaceService() {

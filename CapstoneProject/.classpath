@@ -5,5 +5,7 @@
 	<classpathentry kind="lib" path="lib/rsyntaxtextarea.jar"/>
 	<classpathentry kind="lib" path="lib/lsp4j.jar"/>
 	<classpathentry kind="lib" path="lib/lsp4j-jsonrpc.jar"/>
+	<classpathentry kind="lib" path="lib/flatlaf.jar"/>
+	<classpathentry kind="lib" path="lib/intellij-themes.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
