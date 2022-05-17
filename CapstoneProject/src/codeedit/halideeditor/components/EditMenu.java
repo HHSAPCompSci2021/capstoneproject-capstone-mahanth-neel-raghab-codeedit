@@ -18,5 +18,4 @@ public class EditMenu extends Menu {
         addMenuItem(UNDO);
         addMenuItem(REDO);
     }
-    
 }

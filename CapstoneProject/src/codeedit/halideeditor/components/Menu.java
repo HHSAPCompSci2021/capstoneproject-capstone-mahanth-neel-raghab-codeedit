@@ -3,6 +3,7 @@ package codeedit.halideeditor.components;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
+import com.formdev.flatlaf.ui.FlatMenuUI;;
 
 public abstract class Menu extends JMenu {
 
@@ -10,6 +11,7 @@ public abstract class Menu extends JMenu {
 
     public Menu(String name, ActionListener handler) {
         super(name);
+        setUI(new FlatMenuUI());
         this.handler = handler;
     }
 

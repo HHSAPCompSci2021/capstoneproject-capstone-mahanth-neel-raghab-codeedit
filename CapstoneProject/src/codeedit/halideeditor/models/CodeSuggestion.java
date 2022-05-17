@@ -32,7 +32,7 @@ public class CodeSuggestion implements Comparable<CodeSuggestion> {
 	}
 	@Override
 	public boolean equals(Object obj) {
-		CodeSuggestion o=(CodeSuggestion)obj;
+		CodeSuggestion o = (CodeSuggestion) obj;
 		/*TODO
 		 * Make work properly with name, params, and returnValues
 		 */

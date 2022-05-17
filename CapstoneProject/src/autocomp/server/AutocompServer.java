@@ -15,8 +15,6 @@ import org.eclipse.lsp4j.WorkDoneProgressCancelParams;
 import org.eclipse.lsp4j.InitializedParams;
 import org.eclipse.lsp4j.WorkspaceFolder;
 import java.util.concurrent.CompletableFuture;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class AutocompServer implements LanguageServer, LanguageClientAware {

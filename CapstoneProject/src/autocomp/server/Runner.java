@@ -27,6 +27,6 @@ public class Runner {
             launcher.startListening();
         } catch (IOException ie) {
             ie.printStackTrace();
-        }        
+        }
     }
 }

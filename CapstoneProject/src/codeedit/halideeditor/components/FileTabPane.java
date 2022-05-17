@@ -1,11 +1,11 @@
 package codeedit.halideeditor.components;
 
-import javax.swing.JComponent;
 import javax.swing.JTabbedPane;
 import java.awt.Component;
 
 import codeedit.halideeditor.models.EditorFile;
 import codeedit.halideeditor.utils.FileIOUtils;
+import com.formdev.flatlaf.ui.FlatTabbedPaneUI;
 
 import java.util.ArrayList;
 
@@ -15,6 +15,7 @@ public class FileTabPane extends JTabbedPane {
     
     public FileTabPane() {
         activeFiles = new ArrayList<>();
+        setUI(new FlatTabbedPaneUI());
     }
 
     public void addFileTab(EditorFile file) {
@@ -22,11 +23,6 @@ public class FileTabPane extends JTabbedPane {
         JavaCodeEditor editor = new JavaCodeEditor();
         editor.setText(FileIOUtils.readFile(file.getPath()));
         addTab(file.getName(), new FileIcon(), editor);
-        if (activeFiles.size() > 0) {
-            setTabComponentAt(activeFiles.size() - 1, new CloseButton());
-        } else {
-            setTabComponentAt(0, new CloseButton());
-        }
        
         activeFiles.add(file);
     }

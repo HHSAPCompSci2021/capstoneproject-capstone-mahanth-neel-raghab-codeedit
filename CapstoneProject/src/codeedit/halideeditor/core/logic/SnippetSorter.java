@@ -1,4 +1,4 @@
-package codeedit.halideeditor.logic;
+package codeedit.halideeditor.core.logic;
 
 import java.util.TreeMap;
 
