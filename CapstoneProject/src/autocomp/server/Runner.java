@@ -25,6 +25,7 @@ public class Runner {
             lspServer.connect(client);
 
             launcher.startListening();
+            sock.close();
         } catch (IOException ie) {
             ie.printStackTrace();
         }

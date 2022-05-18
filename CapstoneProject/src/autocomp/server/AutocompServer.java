@@ -20,7 +20,7 @@ import java.util.List;
 public class AutocompServer implements LanguageServer, LanguageClientAware {
     private LanguageClient client;
     private String workSpaceRoot;
-    private FullTextDocumentService docService = new FullTextDocumentService();
+    private DocumentService docService = new DocumentService();
 
     @Override
     public CompletableFuture<InitializeResult> initialize(InitializeParams params) {
@@ -36,12 +36,12 @@ public class AutocompServer implements LanguageServer, LanguageClientAware {
         capabilities.setCodeActionProvider(true);
         capabilities.setCompletionProvider(new CompletionOptions(true, null));
         capabilities.setCodeLensProvider(lensOptions);
+        capabilities.setDefinitionProvider(true);
 
         return CompletableFuture.completedFuture(new InitializeResult(capabilities));
     }
 
     public void cancelProgress(WorkDoneProgressCancelParams params) {
-
     }
 
     public void exit() {
@@ -56,12 +56,8 @@ public class AutocompServer implements LanguageServer, LanguageClientAware {
 
     }
 
-    public void initialized() {
-
-    }
-
     void initialize(InitializedParams params) {
-
+        
     }
 
     @Override

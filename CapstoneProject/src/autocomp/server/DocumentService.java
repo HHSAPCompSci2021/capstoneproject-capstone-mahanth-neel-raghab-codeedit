@@ -15,44 +15,36 @@ import org.eclipse.lsp4j.TextEdit;
 import org.eclipse.lsp4j.services.TextDocumentService;
 import org.eclipse.lsp4j.CodeLens;
 import org.eclipse.lsp4j.CodeLensParams;
+import
 
 import java.util.concurrent.CompletableFuture;
 
-public class FullTextDocumentService implements TextDocumentService {
+public class DocumentService implements TextDocumentService {
     private Map<String, TextDocumentItem> docs = new HashMap<>();
-    
+
     @Override
     public void didOpen(DidOpenTextDocumentParams params) {
         TextDocumentItem doc = params.getTextDocument();
-        docs.put(doc.getUri(), doc);
+        docs.put(doc.getUri(), doc);  
     }
 
     @Override
     public void didChange(DidChangeTextDocumentParams params) {
-        String docUri = params.getTextDocument().getUri();
-        List<TextDocumentContentChangeEvent> changes = params.getContentChanges();
-        
+        String uri = params.getTextDocument().getUri();
+        for (TextDocumentContentChangeEvent changeEvt : params.getContentChanges()) {
+            
+        }
     }
 
     @Override
     public void didClose(DidCloseTextDocumentParams params) {
-        String docUri = params.getTextDocument().getUri();
-        docs.remove(docUri);
+        
     }
 
     @Override
     public void didSave(DidSaveTextDocumentParams params) {
-        params.setText(params.getText());
+
     }
 
-    @Override
-    public CompletableFuture<List<? extends TextEdit>> formatting(DocumentFormattingParams params) {
-        return TextDocumentService.super.formatting(params);
-    }
-
-    @Override
-    public CompletableFuture<List<? extends CodeLens>> codeLens(CodeLensParams params) {
-        // TODO Auto-generated method stub
-        return TextDocumentService.super.codeLens(params);
-    }
+    
 }

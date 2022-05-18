@@ -74,9 +74,7 @@ public class EditorWindow extends JFrame implements ActionListener, KeyListener 
             }
 
             case FileMenu.SAVE_FILE: {
-                EditorFile current = fileTabPane.getSelectedFile();
-                String savedContents = FileIOUtils.readFile(current.getPath());
-                FileIOUtils.writeFile(current.getPath(), savedContents);
+                
                 break;
             }
 
@@ -101,13 +99,13 @@ public class EditorWindow extends JFrame implements ActionListener, KeyListener 
                 break;
             }
             case EditMenu.COPY: {
-            	SnippetSorter s = new SnippetSorter();
-            	Component currentTab = fileTabPane.getSelectedTab();
-            	if (currentTab instanceof JavaCodeEditor) {
-                    s.fill((JavaCodeEditor)currentTab);
-                }
-            	s.sortResults();
-                break;
+            	// SnippetSorter s = new SnippetSorter();
+            	// Component currentTab = fileTabPane.getSelectedTab();
+            	// if (currentTab instanceof JavaCodeEditor) {
+                //     s.fill((JavaCodeEditor)currentTab);
+                // }
+            	// s.sortResults();
+                // break;
             }
             case EditMenu.PASTE: {
                 break;
