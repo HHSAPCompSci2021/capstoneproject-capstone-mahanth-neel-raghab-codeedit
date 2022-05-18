@@ -1,6 +1,7 @@
 package codeedit.halideeditor.core;
 
 import javax.swing.JFrame;
+import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
 import codeedit.halideeditor.components.EditMenu;
@@ -9,6 +10,7 @@ import codeedit.halideeditor.components.FileTabPane;
 import codeedit.halideeditor.components.JavaCodeEditor;
 import codeedit.halideeditor.components.JavaFileChooser;
 import codeedit.halideeditor.components.MenuBar;
+import codeedit.halideeditor.core.logic.SnippetSorter;
 import codeedit.halideeditor.models.EditorFile;
 import codeedit.halideeditor.utils.FileIOUtils;
 import codeedit.halideeditor.utils.NativeOSUtils;
@@ -99,6 +101,12 @@ public class EditorWindow extends JFrame implements ActionListener, KeyListener 
                 break;
             }
             case EditMenu.COPY: {
+            	SnippetSorter s = new SnippetSorter();
+            	Component currentTab = fileTabPane.getSelectedTab();
+            	if (currentTab instanceof JavaCodeEditor) {
+                    s.fill((JavaCodeEditor)currentTab);
+                }
+            	s.sortResults();
                 break;
             }
             case EditMenu.PASTE: {

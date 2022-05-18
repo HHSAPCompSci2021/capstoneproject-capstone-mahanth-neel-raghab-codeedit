@@ -1,6 +1,8 @@
 package codeedit.halideeditor.components;
 
 import javax.swing.JPanel;
+import javax.swing.text.Caret;
+
 import java.awt.BorderLayout;
 
 import java.awt.Color;
@@ -18,10 +20,11 @@ import java.io.File;
 public class JavaCodeEditor extends JPanel {
     private RTextScrollPane codeEditor;
     private Font editorFont;
+    private RSyntaxTextArea codeArea;
 
     public JavaCodeEditor() {
         super(new BorderLayout());
-        RSyntaxTextArea codeArea = new RSyntaxTextArea();
+        codeArea = new RSyntaxTextArea();
         codeArea.setSyntaxEditingStyle(SYNTAX_STYLE_JAVA);
         codeArea.setCodeFoldingEnabled(true);
         String sep = System.getProperty("file.separator");
@@ -51,5 +54,9 @@ public class JavaCodeEditor extends JPanel {
 
     public String getText() {
         return codeEditor.getTextArea().getText();
+    }
+    
+    public RSyntaxTextArea getCodeArea() {
+    	return codeArea;
     }
 }

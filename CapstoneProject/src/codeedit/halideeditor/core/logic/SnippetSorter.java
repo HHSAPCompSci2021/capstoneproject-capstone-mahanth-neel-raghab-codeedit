@@ -4,32 +4,32 @@ import java.util.TreeMap;
 
 import javax.swing.JTextArea;
 
+import codeedit.halideeditor.components.JavaCodeEditor;
 import codeedit.halideeditor.models.CodeSuggestion;
 
 import java.util.ArrayList;
 
 public class SnippetSorter {
-		ArrayList<CodeSuggestion> suggestions;
-	// ArrayList<Integer> occurences;
-		TreeMap<CodeSuggestion, Integer> suggestions2;
-    public SnippetSorter(CodeSuggestion[] suggs, int[] nums) {
-        this.suggestions = new ArrayList<>();
-        this.suggestions2=new TreeMap<>();
-        for (int i=0;i<suggs.length;i++) {
-        	suggestions.add(suggs[i]);
-        	suggestions2.put(suggs[i], nums[i]);
-        }
-        
-    }
-    public SnippetSorter() {
-    	suggestions2=new TreeMap<>();
-    	suggestions = new ArrayList<>();
-    }
-    public void fill(JTextArea j) {
-    	suggestions2.clear();
+	private TreeMap<CodeSuggestion, Integer> suggestions;
+
+	public SnippetSorter(CodeSuggestion[] suggs, int[] nums) {
+		this.suggestions = new TreeMap<>();
+		for (int i = 0; i < suggs.length; i++) {
+			suggestions.put(suggs[i], nums[i]);
+		}
+
+	}
+
+	public SnippetSorter() {
+		suggestions = new TreeMap<>();
+	}
+	
+    public void fill(JavaCodeEditor j) {
+    	suggestions.clear();
     	String text = j.getText();
     	String s="";
-    	for (int i =j.getCaretPosition()-1;i>=0;i--) {
+    	System.out.println(j.getCodeArea().getCaretPosition());
+    	for (int i =j.getCodeArea().getCaretPosition()-1;i>=0;i--) {
     		if (text.charAt(i)==' ') {
     			if (text.indexOf(" ", i+1)!=-1)
     				s=text.substring(i+1, text.indexOf(" ", i+1));
@@ -55,39 +55,30 @@ public class SnippetSorter {
     		else if (i+s.length()!=text.length())
     			l=text.substring(i+s.length());
     		CodeSuggestion t=new CodeSuggestion(l);
-    		if (suggestions2.containsKey(t)) 
-    			suggestions2.put(t, suggestions2.get(t)+1);
+    		if (suggestions.containsKey(t)) 
+    			suggestions.put(t, suggestions.get(t)+1);
     		else {
-    			suggestions2.put(t, 1);
+    			suggestions.put(t, 1);
     		}
     	}
     }
 
     public void sortResults() {
-    	System.out.println(suggestions2);
-    	/*
-    	for (Map.Entry<Suggestion, Integer> entry : suggestions2.entrySet()) {
-    		l=entry.getValue();
-    		for (int j=i+1;j<occurences.size();j++) {
-    			if (occurences.get(j)>l) {
-    				l=occurences.get(j);
-    				h=j;
-    			}
-    		}
-    		occurences.add(0, occurences.remove(h));
-    		suggestions.add(0, suggestions.remove(h));
-    	}*/
+    	suggestions=(TreeMap)suggestions.descendingMap();
     	
-    	suggestions.addAll(suggestions2.keySet());
-    	suggestions.sort((o2, o) -> Integer.compare(suggestions2.get(o), suggestions2.get(o2)));
+    	//suggestions.sort((o2, o) -> Integer.compare(suggestions2.get(o), suggestions2.get(o2)));
     }
 
     public CodeSuggestion[] getSuggestions(int numSuggestions) {
     	if (numSuggestions>suggestions.size())
     		numSuggestions=suggestions.size();
     	CodeSuggestion[] returned = new CodeSuggestion[numSuggestions];
-    	for (int i=0;i<numSuggestions;i++) {
-    		returned[i]=suggestions.get(i);
+    	int i=0;
+    	for (CodeSuggestion s : suggestions.navigableKeySet()) {
+    		if (i>=numSuggestions)
+    			break;
+    		returned[i]=s;
+    		i++;
     	}
         return returned;
     }
