@@ -18,6 +18,13 @@ public class SnippetSorter {
 			suggestions.put(suggs[i], occurences[i]);
 		}
 	}
+	
+	public void fill(CodeSuggestion[] suggs, int[] occurences) {
+		suggestions.clear();
+		for (int i = 0; i < suggs.length; i++) {
+			suggestions.put(suggs[i], occurences[i]);
+		}
+	}
 
 	public void fill(JavaCodeEditor j) {
 		// Clear the treemap
