@@ -19,5 +19,4 @@ public class HalideEditor {
         editor.setSize(800, 600); // TODO: Here or in EditorWindow?
         editor.setVisible(true);
     }
-
 }
