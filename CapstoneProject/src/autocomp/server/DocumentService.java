@@ -8,16 +8,14 @@ import org.eclipse.lsp4j.DidChangeTextDocumentParams;
 import org.eclipse.lsp4j.DidCloseTextDocumentParams;
 import org.eclipse.lsp4j.DidOpenTextDocumentParams;
 import org.eclipse.lsp4j.DidSaveTextDocumentParams;
-import org.eclipse.lsp4j.DocumentFormattingParams;
 import org.eclipse.lsp4j.TextDocumentContentChangeEvent;
 import org.eclipse.lsp4j.TextDocumentItem;
 import org.eclipse.lsp4j.TextEdit;
 import org.eclipse.lsp4j.services.TextDocumentService;
 import org.eclipse.lsp4j.CodeLens;
 import org.eclipse.lsp4j.CodeLensParams;
-import
-
 import java.util.concurrent.CompletableFuture;
+import org.eclipse.jdt;
 
 public class DocumentService implements TextDocumentService {
     private Map<String, TextDocumentItem> docs = new HashMap<>();
@@ -38,7 +36,7 @@ public class DocumentService implements TextDocumentService {
 
     @Override
     public void didClose(DidCloseTextDocumentParams params) {
-        
+
     }
 
     @Override

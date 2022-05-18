@@ -14,18 +14,7 @@ public class Runner {
 
     public static void main(String[] args) {
         try {
-            Socket sock = new Socket("localhost", Integer.parseInt(PORT));
-            InputStream incoming = sock.getInputStream();
-            OutputStream sending = sock.getOutputStream();
             
-            AutocompServer lspServer = new AutocompServer();
-            Launcher<LanguageClient> launcher = LSPLauncher.createServerLauncher(lspServer, incoming, sending);
-
-            LanguageClient client = launcher.getRemoteProxy();
-            lspServer.connect(client);
-
-            launcher.startListening();
-            sock.close();
         } catch (IOException ie) {
             ie.printStackTrace();
         }
