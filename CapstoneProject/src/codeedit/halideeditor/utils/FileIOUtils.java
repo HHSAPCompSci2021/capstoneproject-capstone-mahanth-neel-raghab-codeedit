@@ -1,7 +1,8 @@
 package codeedit.halideeditor.utils;
 
-import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,28 +11,20 @@ public class FileIOUtils {
 
     public static final String lineSeparator = System.getProperty("line.separator");
     public static final String fileSeparator = System.getProperty("file.separator");
-    public static final int numThreads = Runtime.getRuntime().availableProcessors();
 
     public static String readFile(String filename) {
-        StringBuilder data = new StringBuilder();
-        FileReader fr;
-        BufferedReader reader;
+        String data = null;
 
         try {
-            fr = new FileReader(filename);
-            reader = new BufferedReader(fr);
-            String cur = "";
-            
-            while ((cur = reader.readLine()) != null) {
-                data.append(cur);
-            }
-
-            reader.close();
+            FileInputStream fStream = new FileInputStream(filename);
+            byte[] contents = fStream.readAllBytes();
+            data = new String(contents);
+            fStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return data.toString();
+        return data;
     }
 
     public static void writeFile(String filename, String data) {   

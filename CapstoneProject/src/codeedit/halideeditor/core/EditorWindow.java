@@ -20,7 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import javax.swing.plaf.synth.SynthLookAndFeel;
-import com.formdev.flatlaf.intellijthemes.FlatDraculaIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkIJTheme;
 
 import java.io.File;
 import java.awt.Component;
@@ -43,10 +43,10 @@ public class EditorWindow extends JFrame implements ActionListener, KeyListener 
         // String rootPath = System.getProperty("user.dir");
         // String sep = System.getProperty("file.separator");
         SynthLookAndFeel theme = new SynthLookAndFeel();
-        FlatDraculaIJTheme.install(theme);
+        FlatAtomOneDarkIJTheme.install(theme);
 
         try {
-            UIManager.setLookAndFeel(new FlatDraculaIJTheme());
+            UIManager.setLookAndFeel(new FlatAtomOneDarkIJTheme());
         } catch (Exception e) {
             System.err.println("Could not set editor theme");
             e.printStackTrace();
@@ -85,13 +85,7 @@ public class EditorWindow extends JFrame implements ActionListener, KeyListener 
                 }
 
                 File target = chooser.getSelectedFile();
-                Component currentTab = fileTabPane.getSelectedTab();
-                JavaCodeEditor codeWindow = null;
-                if (currentTab instanceof JavaCodeEditor) {
-                    codeWindow = (JavaCodeEditor) codeWindow;
-                }
-
-                FileIOUtils.writeFile(target.getPath(), codeWindow.getText());
+                FileIOUtils.writeFile(target.getPath(), fileTabPane.getSelectedTabContents());
                 break;
             }
 

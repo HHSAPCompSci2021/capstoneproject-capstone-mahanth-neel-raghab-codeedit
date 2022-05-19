@@ -2,7 +2,6 @@ package codeedit.halideeditor.core;
 
 import codeedit.halideeditor.components.FileTabPane;
 import codeedit.halideeditor.components.JavaFileChooser;
-import java.io.File;
 import codeedit.halideeditor.models.EditorFile;
 import codeedit.halideeditor.utils.FileIOUtils;
 

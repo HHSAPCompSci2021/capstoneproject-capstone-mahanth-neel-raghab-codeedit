@@ -1,15 +1,12 @@
 package codeedit.halideeditor.components;
 
 import javax.swing.JPanel;
-import javax.swing.text.Caret;
-
 import java.awt.BorderLayout;
 
 import java.awt.Color;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import static org.fife.ui.rsyntaxtextarea.SyntaxConstants.SYNTAX_STYLE_JAVA;
 import org.fife.ui.rtextarea.RTextScrollPane;
-import org.fife.ui.rsyntaxtextarea.Theme;
 
 import com.formdev.flatlaf.ui.FlatScrollPaneUI;
 import com.formdev.flatlaf.ui.FlatTextAreaUI;
@@ -28,9 +25,9 @@ public class JavaCodeEditor extends JPanel {
         codeArea.setSyntaxEditingStyle(SYNTAX_STYLE_JAVA);
         codeArea.setCodeFoldingEnabled(true);
         String sep = System.getProperty("file.separator");
-        String fontPath = System.getProperty("user.dir") + sep + "res" + sep + "font.ttf";
+        String wspaceRoot = System.getProperty("user.dir");
         try {
-            editorFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath));
+            editorFont = Font.createFont(Font.TRUETYPE_FONT, new File(wspaceRoot + sep + "res" + sep + "font.ttf"));
             editorFont = editorFont.deriveFont(15);
             GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
             genv.registerFont(editorFont);
@@ -42,6 +39,8 @@ public class JavaCodeEditor extends JPanel {
         codeArea.setUI(new FlatTextAreaUI());
         codeEditor = new RTextScrollPane(codeArea);
         codeEditor.setUI(new FlatScrollPaneUI());
+
+        // VSCode-like settings defaults
         codeArea.setAntiAliasingEnabled(true);
         codeArea.setTabSize(4);
         codeArea.setAutoIndentEnabled(true);
