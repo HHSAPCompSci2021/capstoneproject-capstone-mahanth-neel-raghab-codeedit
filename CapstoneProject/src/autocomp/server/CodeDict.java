@@ -6,7 +6,7 @@ package autocomp.server;
  * @author Mahanth
  * @version 5/19/2022
  */
-public class Keywords {
+public class CodeDict {
     public static final String[] JAVA_KEYWORDS = new String[] {
         "abstract",
         "continue",
@@ -59,4 +59,10 @@ public class Keywords {
         "super",
         "while"
     };
+
+    private Map<
+
+    public CodeDict() {
+
+    }
 }

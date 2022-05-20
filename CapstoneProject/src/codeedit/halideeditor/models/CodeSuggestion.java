@@ -19,10 +19,6 @@ public class CodeSuggestion implements Comparable<CodeSuggestion> {
 		return name;
 	}
 
-	public String[] getParams() {
-		return params;
-	}
-
 	@Override
 	public String toString() {
 		return name;

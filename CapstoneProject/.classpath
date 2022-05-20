@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="lib/flatlaf.jar"/>
 	<classpathentry kind="lib" path="lib/intellij-themes.jar"/>
 	<classpathentry kind="lib" path="lib/jdt-ls.jar"/>
+	<classpathentry kind="lib" path="lib/autocomplete.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
