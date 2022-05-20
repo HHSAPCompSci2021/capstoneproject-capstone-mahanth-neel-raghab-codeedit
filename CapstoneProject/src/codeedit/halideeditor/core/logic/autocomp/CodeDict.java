@@ -1,6 +1,7 @@
-package autocomp.server;
+package codeedit.halideeditor.core.logic.autocomp;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * This class contains a list of all the Java keywords,
@@ -61,10 +62,4 @@ public class CodeDict {
         "super",
         "while"
     };
-
-    private ArrayList<String> existingCodeSnippets;
-
-    public CodeDict() {
-        existingCodeSnippets = new ArrayList<>();
-    }
 }

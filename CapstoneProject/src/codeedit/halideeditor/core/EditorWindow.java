@@ -10,7 +10,7 @@ import codeedit.halideeditor.components.FileTabPane;
 import codeedit.halideeditor.components.JavaCodeEditor;
 import codeedit.halideeditor.components.JavaFileChooser;
 import codeedit.halideeditor.components.MenuBar;
-import codeedit.halideeditor.core.logic.SnippetSorter;
+import codeedit.halideeditor.core.logic.sorting.SnippetSorter;
 import codeedit.halideeditor.models.EditorFile;
 import codeedit.halideeditor.utils.FileIOUtils;
 import codeedit.halideeditor.utils.NativeOSUtils;

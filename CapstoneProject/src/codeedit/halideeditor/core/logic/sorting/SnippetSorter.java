@@ -1,4 +1,4 @@
-package codeedit.halideeditor.core.logic;
+package codeedit.halideeditor.core.logic.sorting;
 
 import java.util.NavigableMap;
 import java.util.TreeMap;
