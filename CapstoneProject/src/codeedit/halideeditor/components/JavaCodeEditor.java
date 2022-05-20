@@ -6,7 +6,6 @@ import java.awt.BorderLayout;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import static org.fife.ui.rsyntaxtextarea.SyntaxConstants.SYNTAX_STYLE_JAVA;
 import org.fife.ui.rtextarea.RTextScrollPane;
-import org.fife.ui;
 
 import com.formdev.flatlaf.ui.FlatScrollPaneUI;
 import com.formdev.flatlaf.ui.FlatTextAreaUI;
@@ -35,7 +34,8 @@ public class JavaCodeEditor extends JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        
+        // UI Settings for the code area
         codeArea.setUI(new FlatTextAreaUI());
         codeEditor = new RTextScrollPane(codeArea);
         codeEditor.setUI(new FlatScrollPaneUI());
@@ -45,6 +45,12 @@ public class JavaCodeEditor extends JPanel {
         codeArea.setTabSize(4);
         codeArea.setAutoIndentEnabled(true);
         add(codeEditor);
+    }
+
+    private CompletionProvider createCompletionProvider() {
+        DefaultCompletionProvider provider = new DefaultCompletionProvider();
+
+        provider.addCompletion(c);
     }
 
     public void setText(String data) {

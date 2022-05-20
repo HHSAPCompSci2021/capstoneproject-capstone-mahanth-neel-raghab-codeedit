@@ -1,5 +1,7 @@
 package autocomp.server;
 
+import java.util.ArrayList;
+
 /**
  * This class contains a list of all the Java keywords,
  * to be used by the CompletionService incase it cannot provide autocompletion.
@@ -60,9 +62,9 @@ public class CodeDict {
         "while"
     };
 
-    private Map<
+    private ArrayList<String> existingCodeSnippets;
 
     public CodeDict() {
-
+        existingCodeSnippets = new ArrayList<>();
     }
 }
