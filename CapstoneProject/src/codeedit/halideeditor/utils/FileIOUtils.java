@@ -1,39 +1,56 @@
 package codeedit.halideeditor.utils;
 
-import java.io.FileInputStream;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
+/**
+ * Contains data and functions relating to the reading and writing of files.
+ * @author Neel Sudhakaran
+ */
 public class FileIOUtils {
 
+    /**
+     * The {@code String} that represents a newline within a file.
+     */
     public static final String lineSeparator = System.getProperty("line.separator");
+
+    /**
+     * The separation {@code String} between folder names in a file path.
+     */
     public static final String fileSeparator = System.getProperty("file.separator");
 
-    public static String readFile(String filename) {
-        String data = null;
+    /**
+     * Reads data from the specified file.
+     * @param path the path to the file to read from
+     * @return the data contained within the specified file
+     */
+    public static String readFile(String path) {
 
-        try {
-            FileInputStream fStream = new FileInputStream(filename);
-            byte[] contents = fStream.readAllBytes();
-            data = new String(contents);
-            fStream.close();
-        } catch (IOException e) {
+        StringBuffer data = new StringBuffer();
+
+        try(Scanner scanner = new Scanner(new FileReader(path))) {
+            while (scanner.hasNextLine()) data.append(scanner.nextLine()).append(lineSeparator);
+        } catch(IOException e) {
             e.printStackTrace();
         }
-
-        return data;
+        
+        return data.toString();
     }
 
-    public static void writeFile(String filename, String data) {   
-        try (FileWriter fw = new FileWriter(filename)) {
-            BufferedWriter writer = new BufferedWriter(fw);
+    /**
+     * Writes data to the specified file.
+     * @param path the path to the file to write to
+     * @param data the data to be written to the file
+     */
+    public static void writeFile(String path, String data) {
+        try (FileWriter writer = new FileWriter(path)) {
             writer.write(data);
             writer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch(IOException e) {
+            e.printStackTrace(); // TODO: Error handling
+        };
     }
+    
 }

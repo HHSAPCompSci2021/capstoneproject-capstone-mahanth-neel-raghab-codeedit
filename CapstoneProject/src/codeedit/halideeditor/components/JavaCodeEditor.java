@@ -1,67 +1,50 @@
 package codeedit.halideeditor.components;
 
 import javax.swing.JPanel;
+
 import java.awt.BorderLayout;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import static org.fife.ui.rsyntaxtextarea.SyntaxConstants.SYNTAX_STYLE_JAVA;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
-import com.formdev.flatlaf.ui.FlatScrollPaneUI;
-import com.formdev.flatlaf.ui.FlatTextAreaUI;
-import java.awt.Font;
-import java.awt.GraphicsEnvironment;
-import java.io.File;
-
+/**
+ * Defines a syntax-higlighted code editor for Java code.
+ * @author Neel Sudhakaran
+ */
 public class JavaCodeEditor extends JPanel {
-    private RTextScrollPane codeEditor;
-    private Font editorFont;
-    private RSyntaxTextArea codeArea;
 
+    /**
+     * The component that represents the full code editor
+     */
+    private RTextScrollPane codeEditor;
+
+    /**
+     * Creates a new {@code JavaCodeEditor} with code-folding and scrolling capabilities.
+     */
     public JavaCodeEditor() {
         super(new BorderLayout());
-        codeArea = new RSyntaxTextArea();
+        RSyntaxTextArea codeArea = new RSyntaxTextArea();
         codeArea.setSyntaxEditingStyle(SYNTAX_STYLE_JAVA);
         codeArea.setCodeFoldingEnabled(true);
-        String sep = System.getProperty("file.separator");
-        String wspaceRoot = System.getProperty("user.dir");
-        try {
-            editorFont = Font.createFont(Font.TRUETYPE_FONT, new File(wspaceRoot + sep + "res" + sep + "font.ttf"));
-            editorFont = editorFont.deriveFont(15);
-            GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            genv.registerFont(editorFont);
-            codeArea.setFont(editorFont);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        // UI Settings for the code area
-        codeArea.setUI(new FlatTextAreaUI());
         codeEditor = new RTextScrollPane(codeArea);
-        codeEditor.setUI(new FlatScrollPaneUI());
-
-        // VSCode-like settings defaults
-        codeArea.setAntiAliasingEnabled(true);
-        codeArea.setTabSize(4);
-        codeArea.setAutoIndentEnabled(true);
         add(codeEditor);
     }
 
-    private CompletionProvider createCompletionProvider() {
-        DefaultCompletionProvider provider = new DefaultCompletionProvider();
-
-        provider.addCompletion(c);
-    }
-
+    /**
+     * Sets the text within the editor to the given data.
+     * @param data the data to set the editor text to
+     */
     public void setText(String data) {
         codeEditor.getTextArea().setText(data);
     }
 
+    /**
+     * Gets the current text within the editor.
+     * @return the text within the editor
+     */
     public String getText() {
         return codeEditor.getTextArea().getText();
     }
-    
-    public RSyntaxTextArea getCodeArea() {
-    	return codeArea;
-    }
+
 }

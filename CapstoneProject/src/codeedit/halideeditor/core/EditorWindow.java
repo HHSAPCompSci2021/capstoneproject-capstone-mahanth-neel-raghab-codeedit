@@ -1,141 +1,152 @@
 package codeedit.halideeditor.core;
 
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
-import javax.swing.UIManager;
 
-import codeedit.halideeditor.components.EditMenu;
-import codeedit.halideeditor.components.FileMenu;
+import codeedit.halideeditor.components.ErrorDialog;
 import codeedit.halideeditor.components.FileTabPane;
 import codeedit.halideeditor.components.JavaCodeEditor;
 import codeedit.halideeditor.components.JavaFileChooser;
 import codeedit.halideeditor.components.MenuBar;
-import codeedit.halideeditor.core.logic.sorting.SnippetSorter;
 import codeedit.halideeditor.models.EditorFile;
-import codeedit.halideeditor.utils.FileIOUtils;
 import codeedit.halideeditor.utils.NativeOSUtils;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
-import javax.swing.plaf.synth.SynthLookAndFeel;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkIJTheme;
-
 import java.io.File;
-import java.awt.Component;
 
-public class EditorWindow extends JFrame implements ActionListener, KeyListener {
+import static codeedit.halideeditor.components.menus.FileMenu.*;
+import static codeedit.halideeditor.components.menus.FileRevealMenu.*;
+import static codeedit.halideeditor.components.menus.NavigateMenu.*;
+import java.awt.Desktop;
 
-    private MenuBar menuBar;
+/**
+ * Composes the layout of the {@code EditorWindow} and handles all application actions.
+ * @author Neel Sudhakaran, Mahanth Mohan
+ */
+public class EditorWindow extends JFrame implements ActionListener {
+
+    /**
+     * The {@code FileTabPane} managing all files for the {@code EditorWindow}.
+     */
     private FileTabPane fileTabPane;
-    
+
+    /**
+     * Creates a new {@code EditorWindow} with the standard layout.
+     */
     public EditorWindow() {
-        super("Halide Editor");
-        menuBar = new MenuBar(this);
+        super("HalideEditor");
+        if (!NativeOSUtils.isMac()) setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        setJMenuBar(new MenuBar(this));
         fileTabPane = new FileTabPane();
-        setJMenuBar(menuBar);
         add(fileTabPane);
-        if (!NativeOSUtils.isMac()) setDefaultCloseOperation(EXIT_ON_CLOSE); // TODO: Move to HalideEditor?
-    }
-
-    public static void initLookAndFeel() {
-        // String rootPath = System.getProperty("user.dir");
-        // String sep = System.getProperty("file.separator");
-        SynthLookAndFeel theme = new SynthLookAndFeel();
-        FlatAtomOneDarkIJTheme.install(theme);
-
-        try {
-            UIManager.setLookAndFeel(new FlatAtomOneDarkIJTheme());
-        } catch (Exception e) {
-            System.err.println("Could not set editor theme");
-            e.printStackTrace();
-        }
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        switch(e.getActionCommand()) {
+    public void actionPerformed(ActionEvent event) {
+        try {
+            switch (event.getActionCommand()) {
+                case NEW_FILE: {
+                    EditorFile file = new JavaFileChooser().newAction();
 
-            case FileMenu.NEW_FILE: {
-                EditorActions.newFileAction(fileTabPane);
-                break;
-            }
-
-            case FileMenu.OPEN_FILE: {
-                EditorActions.openFileAction(fileTabPane);
-                break;
-            }
-
-            case FileMenu.CLOSE_FILE: {
-                EditorFile current = fileTabPane.getSelectedFile();
-                fileTabPane.removeFileTab(current);
-                break;
-            }
-
-            case FileMenu.SAVE_FILE: {
-                
-                break;
-            }
-
-            case FileMenu.SAVE_FILE_AS: {
-                JavaFileChooser chooser = new JavaFileChooser();
-                if (chooser.showSaveDialog(null) != JavaFileChooser.APPROVE_OPTION) {
-                    return;
+                    if(file == null) return; // TODO: Do as Error Handle?
+                    fileTabPane.openFile(file);
+                    break;
                 }
 
-                File target = chooser.getSelectedFile();
-                FileIOUtils.writeFile(target.getPath(), fileTabPane.getSelectedTabContents());
-                break;
-            }
+                case OPEN_FILE: {
+                    EditorFile file = new JavaFileChooser().openAction();
 
-            case EditMenu.CUT: {
-                break;
-            }
-            case EditMenu.COPY: {
-            	// SnippetSorter s = new SnippetSorter();
-            	// Component currentTab = fileTabPane.getSelectedTab();
-            	// if (currentTab instanceof JavaCodeEditor) {
-                //     s.fill((JavaCodeEditor)currentTab);
-                // }
-            	// s.sortResults();
-                // break;
-            }
-            case EditMenu.PASTE: {
-                break;
-            }
-            case EditMenu.UNDO: {
-                break;
-            }
-            case EditMenu.REDO: {
-                break;
-            }
+                    if(file == null) return; // TODO: Do as Error Handle?
+                    fileTabPane.openFile(file);
+                    break;
+                }
 
+                case SAVE_FILE: {
+                    JavaCodeEditor editor = fileTabPane.getCurrentEditor();
+                    EditorFile file = fileTabPane.getCurrentFile();
+                    file.write(editor.getText());
+                    break;
+                }
+                case SAVE_FILE_AS: {
+                    EditorFile file = new JavaFileChooser().saveAction();
+
+                    if(file == null) return; // TODO: Do as Error Handle?
+
+                    JavaCodeEditor editor = fileTabPane.getCurrentEditor();
+                    file.write(editor.getText());
+                    break;
+                }
+
+                case CLOSE_FILE: {
+                    fileTabPane.closeFile(fileTabPane.getCurrentFile());
+                    break;
+                }
+                case CLOSE_ALL_FILES: {
+                    fileTabPane.removeAll();
+                    break;
+                }
+
+                case REVEAL_IN_EXPLORER: {
+                    EditorFile file = fileTabPane.getCurrentFile();
+                    Desktop.getDesktop().open(new File(file.getParentDirectory()));
+                    break;
+                }
+
+                case REVEAL_IN_EDITOR: {
+                    EditorFile file = fileTabPane.getCurrentFile();
+                    Desktop.getDesktop().open(file.toFile());
+                    break;
+                }
+
+                case SWITCH_TO_FIRST_TAB: {
+                    fileTabPane.switchToTab(0);
+                    break;
+                }
+
+                case SWITCH_TO_LAST_TAB: {
+                    fileTabPane.switchToTab(fileTabPane.getTabCount() - 1);
+                    break;
+                }
+
+                case SWITCH_TO_SECOND_TAB:{
+                    fileTabPane.switchToTab(1);
+                    break;
+                }
+
+                case SWITCH_TO_THIRD_TAB: {
+                    fileTabPane.switchToTab(2);
+                    break;
+                }
+
+                case SWITCH_TO_FOURTH_TAB: {
+                    fileTabPane.switchToTab(3);
+                    break;
+                }
+
+                case SWITCH_TO_FIFTH_TAB: {
+                    fileTabPane.switchToTab(4);
+                    break;
+                }
+
+                case SWITCH_TO_SIXTH_TAB: {
+                    fileTabPane.switchToTab(5);
+                    break;
+                }
+
+                case SWITCH_TO_SEVENTH_TAB: {
+                    fileTabPane.switchToTab(6);
+                    break;
+                }
+
+                case SWITCH_TO_EIGHTH_TAB: {
+                    fileTabPane.switchToTab(7);
+                    break;
+                }
+
+            }
+        } catch(Exception e) {
+            new ErrorDialog(e.getMessage());
         }
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_S: {
-                
-                break;
-            }
-
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent arg0) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void keyReleased(KeyEvent arg0) {
-        // TODO Auto-generated method stub
-        
     }
 }

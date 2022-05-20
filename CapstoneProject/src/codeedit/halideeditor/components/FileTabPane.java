@@ -1,54 +1,77 @@
 package codeedit.halideeditor.components;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JTabbedPane;
-import java.awt.Component;
 
 import codeedit.halideeditor.models.EditorFile;
-import codeedit.halideeditor.utils.FileIOUtils;
-import com.formdev.flatlaf.ui.FlatTabbedPaneUI;
 
-import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
-
-import java.util.ArrayList;
-
+/**
+ * Represents a {@code FileTabPane} that handles actions and graphics associated with the user's various files.
+ * @author Neel Sudhakaran
+ */
 public class FileTabPane extends JTabbedPane {
 
-    private ArrayList<EditorFile> activeFiles;
+    /**
+     * The list of active files in the {@code FileTabPane}.
+     */
+    private List<EditorFile> files;
 
+    /**
+     * Creates a new, empty {@code FileTabPane}.
+     */
     public FileTabPane() {
-        activeFiles = new ArrayList<>();
-        setUI(new FlatTabbedPaneUI());
+        files = new ArrayList<>();
     }
 
-    public void addFileTab(EditorFile file) {
-        if (activeFiles.contains(file)) {
-            return;
-        }
+    /**
+     * Opens the specified file in the {@code FileTabPane}.
+     * @param file the file to open
+     */
+    public void openFile(EditorFile file) {
+        if(files.contains(file)) return;
+
+        files.add(file);
         JavaCodeEditor editor = new JavaCodeEditor();
-        editor.setText(FileIOUtils.readFile(file.getPath()));
+        editor.setText(file.read());
         addTab(file.getName(), new FileIcon(), editor);
-
-        activeFiles.add(file);
+        switchToTab(getSelectedIndex() + 1);
+       
     }
 
-    public void removeFileTab(EditorFile file) {
-        int removalIndex = activeFiles.indexOf(file);
+    /**
+     * Closes the specified file in the {@code FileTabPane}.
+     * @param file the file to close
+     */
+    public void closeFile(EditorFile file) {
+        int removalIndex = files.indexOf(file);
         removeTabAt(removalIndex);
-        activeFiles.remove(removalIndex);
+        files.remove(removalIndex);
     }
 
-    public EditorFile getSelectedFile() {
-        int idx = getSelectedIndex();
-        return activeFiles.get(idx);
+    /**
+     * Gets the current active {@code EditorFile}.
+     * @return the current active file
+     */
+    public EditorFile getCurrentFile() {
+        return files.get(getSelectedIndex());
     }
 
-    public String getSelectedTabContents() {
-        Component selected = getTabComponentAt(getSelectedIndex());
-        RSyntaxTextArea textArea = null;
-        if (selected instanceof RSyntaxTextArea) {
-            textArea = (RSyntaxTextArea) selected;
-        }
-
-        return textArea.getText();        
+    /**
+     * Gets the current editor for the active file.
+     * @return the current editor
+     */
+    public JavaCodeEditor getCurrentEditor() {
+        return (JavaCodeEditor) getSelectedComponent();
     }
+
+    /**
+     * Switches the active file tab to the one at the specified index (if that exists).
+     * @param index the index to switch to
+     */
+    public void switchToTab(int index) {
+        if(index < getTabCount() && index >= 0) setSelectedIndex(index);
+    }
+
 }

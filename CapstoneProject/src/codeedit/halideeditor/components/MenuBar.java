@@ -2,17 +2,26 @@ package codeedit.halideeditor.components;
 
 import javax.swing.JMenuBar;
 
-import java.awt.Color;
+import codeedit.halideeditor.components.menus.EditMenu;
+import codeedit.halideeditor.components.menus.FileMenu;
+import codeedit.halideeditor.components.menus.NavigateMenu;
 
 import java.awt.event.ActionListener;
-import com.formdev.flatlaf.ui.FlatMenuBarUI;
 
+/**
+ * Defines a {@code MenuBar} composed of various different menus.
+ * @author Neel Sudhakaran
+ */
 public class MenuBar extends JMenuBar {
-    
+
+    /**
+     * Creates a {@code MenuBar} with the given action handler.
+     * @param handler the handler for all menu actions
+     */
     public MenuBar(ActionListener handler) {
-        setBackground(new Color(62, 62, 62));
-        setUI(new FlatMenuBarUI());
         add(new FileMenu(handler));
         add(new EditMenu(handler));
+        add(new NavigateMenu(handler));
     }
+
 }
