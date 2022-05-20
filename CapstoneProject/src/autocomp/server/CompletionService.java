@@ -14,6 +14,7 @@ import org.eclipse.lsp4j.DidOpenTextDocumentParams;
 import org.eclipse.lsp4j.DidSaveTextDocumentParams;
 import org.eclipse.lsp4j.Hover;
 import org.eclipse.lsp4j.HoverParams;
+import org.eclipse.lsp4j.TextDocumentIdentifier;
 import org.eclipse.lsp4j.TextDocumentItem;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 import org.eclipse.lsp4j.services.TextDocumentService;
@@ -34,7 +35,7 @@ public class CompletionService implements TextDocumentService {
 
     @Override
     public void didClose(DidCloseTextDocumentParams params) {
-        TextDocumentItem doc = params.getTextDocument();
+        TextDocumentIdentifier doc = params.getTextDocument();
         docs.remove(doc.getUri());
     }
 

@@ -64,7 +64,10 @@ public class SnippetSorter {
 					l = text.substring(i + s.length(), text.indexOf("\n", i));
 			} else if (i + s.length() != text.length())
 				l = text.substring(i + s.length());
-			CodeSuggestion t = new CodeSuggestion(l);
+			if (l.indexOf("(") != -1) {
+				CodeSuggestion t = new CodeSuggestion(l, 1);
+			}
+			CodeSuggestion t = new CodeSuggestion(l, 0);
 			if (suggestions.containsKey(t))
 				suggestions.put(t, suggestions.get(t) + 1);
 			else {

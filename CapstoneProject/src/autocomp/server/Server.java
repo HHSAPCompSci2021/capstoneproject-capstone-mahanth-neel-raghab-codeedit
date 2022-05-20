@@ -44,7 +44,7 @@ public class Server implements LanguageServer, LanguageClientAware {
 
     @Override
     public TextDocumentService getTextDocumentService() {
-        
+    	 
     }
 
     @Override
