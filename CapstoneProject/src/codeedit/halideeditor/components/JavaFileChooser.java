@@ -46,7 +46,7 @@ public class JavaFileChooser extends JFileChooser {
     }
 
     /**
-     * Promts the user to save a file.
+     * Prompts the user to save a file.
      * @return the file to save to
      */
     public EditorFile saveAction() {

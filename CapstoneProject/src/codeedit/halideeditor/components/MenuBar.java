@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
  * @author Neel Sudhakaran
  */
 public class MenuBar extends JMenuBar {
-
+    
     /**
      * Creates a {@code MenuBar} with the given action handler.
      * @param handler the handler for all menu actions
@@ -23,5 +23,4 @@ public class MenuBar extends JMenuBar {
         add(new EditMenu(handler));
         add(new NavigateMenu(handler));
     }
-
 }
