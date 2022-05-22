@@ -1,62 +1,60 @@
 package codeedit.halideeditor.utils;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NavigableMap;
-import java.util.NavigableSet;
 import java.util.TreeMap;
+
 /**
  * Sorts the possible completions
- * @author Raghab
+ * 
+ * @author Raghab, Mahanth
  *
  */
 public class SnippetSorter {
-	NavigableMap<CodeSuggestion, Integer> suggs;
+	NavigableMap<Integer, CodeSuggestion> suggs;
+
 	public SnippetSorter() {
 		suggs = new TreeMap<>();
 	}
-	
-	public SnippetSorter (CodeSuggestion[] suggestions, int[] occurances) {
-		suggs=new TreeMap<>();
-		fill(suggestions, occurances);
+
+	public SnippetSorter(CodeSuggestion[] suggestions, int[] occurences) {
+		suggs = new TreeMap<>();
+		fill(suggestions, occurences);
 	}
-	
-	
-	public void fill (CodeSuggestion[] suggestions, int[] occurances) {
+
+	public void fill(CodeSuggestion[] suggestions, int[] occurences) {
 		suggs.clear();
 		for (int i = 0; i < suggestions.length; i++) {
-			suggs.put(suggestions[i], occurances[i]);
+			suggs.put(occurences[i], suggestions[i]);
 		}
 	}
-	
-	private List<CodeSuggestion> sort () {
-		ArrayList<CodeSuggestion> returned = new ArrayList<>();
-		returned.addAll(suggs.keySet());
-		returned.sort((o1, o2) -> suggs.get(o2) - suggs.get(o1));
-		return returned;
+
+	private CodeSuggestion[] sort() {
+		suggs = suggs.descendingMap();
+		return suggs.values().toArray(CodeSuggestion[]::new);
 	}
-	
-	public CodeSuggestion[] getSuggestions (int n) {
+
+	public CodeSuggestion[] getSuggestions(int n) {
 		if (n > suggs.size()) {
-			n=suggs.size();
+			n = suggs.size();
 		}
-		CodeSuggestion[] r = new CodeSuggestion[n];
-		int i =0;
-		for (CodeSuggestion c : sort()) {
-			if (i==n)
-				break;
-			r[i]=c;
-			i++;
+
+		CodeSuggestion[] sortedSugs = sort();
+		CodeSuggestion[] result = new CodeSuggestion[n];
+
+		for (int i = 0; i < n; i++) {
+			result[i] = sortedSugs[i];
 		}
-		return r;
+		
+		return result;
 	}
-	public CodeSuggestion[] getSuggestions () {
-		CodeSuggestion[] r = new CodeSuggestion[suggs.size()];
-		int i =0;
-		for (CodeSuggestion c : sort()) {
-			r[i]=c;
-			i++;
+
+	public CodeSuggestion[] getSuggestions() {
+		CodeSuggestion[] result = new CodeSuggestion[suggs.size()];
+		CodeSuggestion[] sortedSugs = sort();
+
+		for (int i = 0; i < result.length; i++) {
+			result[i] = sortedSugs[i];
 		}
-		return r;
+
+		return result;
 	}
 }

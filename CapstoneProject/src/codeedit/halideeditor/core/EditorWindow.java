@@ -1,7 +1,6 @@
 package codeedit.halideeditor.core;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
@@ -17,11 +16,7 @@ import codeedit.halideeditor.utils.NativeOSUtils;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Arrays;
 
 import static codeedit.halideeditor.components.menus.FileMenu.*;
 import static codeedit.halideeditor.components.menus.FileRevealMenu.*;
@@ -30,10 +25,11 @@ import static codeedit.halideeditor.components.menus.NavigateMenu.*;
 import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 
 /**
- * Composes the layout of the {@code EditorWindow} and handles all application actions.
+ * Composes the layout of the {@code EditorWindow} and handles all application
+ * actions.
+ * 
  * @author Neel Sudhakaran, Mahanth Mohan
  */
 public class EditorWindow extends JFrame implements ActionListener {
@@ -51,22 +47,21 @@ public class EditorWindow extends JFrame implements ActionListener {
      */
     public EditorWindow() {
         super("HalideEditor");
-        if (!NativeOSUtils.isMac()) setDefaultCloseOperation(EXIT_ON_CLOSE);
+        if (!NativeOSUtils.isMac())
+            setDefaultCloseOperation(EXIT_ON_CLOSE);
         setJMenuBar(new MenuBar(this));
         this.setLayout(new BorderLayout());
         fileTabPane = new FileTabPane();
         add(fileTabPane);
         suggestionBox = new JTextArea();
         suggestionBox.setEditable(false);
-        scrollSuggestions = new JScrollPane(suggestionBox, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollSuggestions.setPreferredSize(new Dimension(500,100));
+        scrollSuggestions = new JScrollPane(suggestionBox, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollSuggestions.setPreferredSize(new Dimension(500, 100));
         scrollSuggestions.setVisible(false);
         add(scrollSuggestions, BorderLayout.SOUTH);
         giver = new CompletionGiver();
-        
-        
     }
-    
 
     @Override
     public void actionPerformed(ActionEvent event) {
@@ -75,7 +70,8 @@ public class EditorWindow extends JFrame implements ActionListener {
                 case NEW_FILE: {
                     EditorFile file = new JavaFileChooser().newAction();
 
-                    if(file == null) return; // TODO: Do as Error Handle?
+                    if (file == null)
+                        return; // TODO: Do as Error Handle?
                     fileTabPane.openFile(file);
                     scrollSuggestions.setVisible(true);
                     break;
@@ -84,7 +80,8 @@ public class EditorWindow extends JFrame implements ActionListener {
                 case OPEN_FILE: {
                     EditorFile file = new JavaFileChooser().openAction();
 
-                    if(file == null) return; // TODO: Do as Error Handle?
+                    if (file == null)
+                        return; // TODO: Do as Error Handle?
                     fileTabPane.openFile(file);
                     scrollSuggestions.setVisible(true);
                     break;
@@ -99,21 +96,22 @@ public class EditorWindow extends JFrame implements ActionListener {
                 case SAVE_FILE_AS: {
                     EditorFile file = new JavaFileChooser().saveAction();
 
-                    if(file == null) return; // TODO: Do as Error Handle?
+                    if (file == null)
+                        return; // TODO: Do as Error Handle?
 
                     JavaCodeEditor editor = fileTabPane.getCurrentEditor();
                     file.write(editor.getText());
                     break;
                 }
                 case AUTOCOMPLETE: {
-                	CodeSuggestion[] c = giver.getSuggestions(fileTabPane.getCurrentEditor());
-                	StringBuffer s = new StringBuffer();
-                	for (int i = 0; i< c.length; i++) {
-                		s.append(c[i]+"\n");
-                	}
-                	s.delete(s.length()-1, s.length());
-                	suggestionBox.setText(s.toString());
-                	break;
+                    CodeSuggestion[] c = giver.getSuggestions(fileTabPane.getCurrentEditor());
+                    StringBuffer s = new StringBuffer();
+                    for (int i = 0; i < c.length; i++) {
+                        s.append(c[i] + "\n");
+                    }
+                    
+                    suggestionBox.setText(s.substring(0, s.length() - 1));
+                    break;
                 }
 
                 case CLOSE_FILE: {
@@ -147,7 +145,7 @@ public class EditorWindow extends JFrame implements ActionListener {
                     break;
                 }
 
-                case SWITCH_TO_SECOND_TAB:{
+                case SWITCH_TO_SECOND_TAB: {
                     fileTabPane.switchToTab(1);
                     break;
                 }
@@ -183,9 +181,9 @@ public class EditorWindow extends JFrame implements ActionListener {
                 }
 
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             new ErrorDialog(e.getMessage());
         }
     }
-    
+
 }

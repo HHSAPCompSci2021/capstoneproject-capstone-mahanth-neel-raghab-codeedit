@@ -1,15 +1,17 @@
 package codeedit.halideeditor.components;
 
-import javax.swing.JPanel;
+import static org.fife.ui.rsyntaxtextarea.SyntaxConstants.SYNTAX_STYLE_JAVA;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JPanel;
+
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
-import static org.fife.ui.rsyntaxtextarea.SyntaxConstants.SYNTAX_STYLE_JAVA;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 /**
  * Defines a syntax-higlighted code editor for Java code.
+ * 
  * @author Neel Sudhakaran
  */
 public class JavaCodeEditor extends JPanel {
@@ -20,7 +22,8 @@ public class JavaCodeEditor extends JPanel {
     private RTextScrollPane codeEditor;
 
     /**
-     * Creates a new {@code JavaCodeEditor} with code-folding and scrolling capabilities.
+     * Creates a new {@code JavaCodeEditor} with code-folding and scrolling
+     * capabilities.
      */
     public JavaCodeEditor() {
         super(new BorderLayout());
@@ -33,6 +36,7 @@ public class JavaCodeEditor extends JPanel {
 
     /**
      * Sets the text within the editor to the given data.
+     * 
      * @param data the data to set the editor text to
      */
     public void setText(String data) {
@@ -41,14 +45,14 @@ public class JavaCodeEditor extends JPanel {
 
     /**
      * Gets the current text within the editor.
+     * 
      * @return the text within the editor
      */
     public String getText() {
         return codeEditor.getTextArea().getText();
     }
-    
-    public RTextScrollPane getCodeEditor() {
-		return codeEditor;
-	}
 
+    public RTextScrollPane getCodeEditor() {
+        return codeEditor;
+    }
 }
