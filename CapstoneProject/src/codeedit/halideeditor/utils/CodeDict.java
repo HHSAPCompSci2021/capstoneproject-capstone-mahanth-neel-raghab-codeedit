@@ -12,20 +12,7 @@ public class CodeDict {
             "return", "short", "static", "strictfp", "super", "switch",
             "synchronized", "this", "throw", "throws", "transient", "true",
             "try", "void", "volatile", "while" };
-	private static ArrayList<String> METHODS= new ArrayList<>();
-	private static ArrayList<String> FIELDS= new ArrayList<>();
+	public static ArrayList<String> METHODS= new ArrayList<>();
+	public static ArrayList<String> FIELDS= new ArrayList<>();
 	
-	public static ArrayList<String> getMethods() {
-		return METHODS;
-	}
-	public static ArrayList<String> getFields() {
-		return FIELDS;
-	}
-	
-	public static void addMethod (String s) {
-		METHODS.add(s);
-	}
-	public static void addField (String s) {
-		FIELDS.add(s);
-	}
 }
