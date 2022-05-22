@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import org.fife.rsta.ac.LanguageSupportFactory;
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+
 import codeedit.halideeditor.components.ErrorDialog;
 import codeedit.halideeditor.components.FileTabPane;
 import codeedit.halideeditor.components.JavaCodeEditor;
@@ -83,6 +86,7 @@ public class EditorWindow extends JFrame implements ActionListener {
                     if (file == null)
                         return; // TODO: Do as Error Handle?
                     fileTabPane.openFile(file);
+                    
                     scrollSuggestions.setVisible(true);
                     break;
                 }
@@ -91,6 +95,8 @@ public class EditorWindow extends JFrame implements ActionListener {
                     JavaCodeEditor editor = fileTabPane.getCurrentEditor();
                     EditorFile file = fileTabPane.getCurrentFile();
                     file.write(editor.getText());
+                    System.out.println("update");
+                    giver.update(editor);
                     break;
                 }
                 case SAVE_FILE_AS: {
