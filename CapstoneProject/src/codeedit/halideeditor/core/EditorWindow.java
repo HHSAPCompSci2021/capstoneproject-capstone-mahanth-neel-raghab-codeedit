@@ -1,23 +1,36 @@
 package codeedit.halideeditor.core;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import codeedit.halideeditor.components.ErrorDialog;
 import codeedit.halideeditor.components.FileTabPane;
 import codeedit.halideeditor.components.JavaCodeEditor;
 import codeedit.halideeditor.components.JavaFileChooser;
 import codeedit.halideeditor.components.MenuBar;
+import codeedit.halideeditor.utils.CodeSuggestion;
+import codeedit.halideeditor.utils.CompletionGiver;
 import codeedit.halideeditor.models.EditorFile;
 import codeedit.halideeditor.utils.NativeOSUtils;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
 
 import static codeedit.halideeditor.components.menus.FileMenu.*;
 import static codeedit.halideeditor.components.menus.FileRevealMenu.*;
 import static codeedit.halideeditor.components.menus.NavigateMenu.*;
+
+import java.awt.BorderLayout;
 import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 /**
  * Composes the layout of the {@code EditorWindow} and handles all application actions.
@@ -29,6 +42,9 @@ public class EditorWindow extends JFrame implements ActionListener {
      * The {@code FileTabPane} managing all files for the {@code EditorWindow}.
      */
     private FileTabPane fileTabPane;
+    private JTextArea suggestionBox;
+    private JScrollPane scrollSuggestions;
+    private CompletionGiver giver;
 
     /**
      * Creates a new {@code EditorWindow} with the standard layout.
@@ -36,11 +52,21 @@ public class EditorWindow extends JFrame implements ActionListener {
     public EditorWindow() {
         super("HalideEditor");
         if (!NativeOSUtils.isMac()) setDefaultCloseOperation(EXIT_ON_CLOSE);
-
         setJMenuBar(new MenuBar(this));
+        this.setLayout(new BorderLayout());
         fileTabPane = new FileTabPane();
         add(fileTabPane);
+        suggestionBox = new JTextArea();
+        suggestionBox.setEditable(false);
+        scrollSuggestions = new JScrollPane(suggestionBox, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollSuggestions.setPreferredSize(new Dimension(500,100));
+        scrollSuggestions.setVisible(false);
+        add(scrollSuggestions, BorderLayout.SOUTH);
+        giver = new CompletionGiver();
+        
+        
     }
+    
 
     @Override
     public void actionPerformed(ActionEvent event) {
@@ -51,6 +77,7 @@ public class EditorWindow extends JFrame implements ActionListener {
 
                     if(file == null) return; // TODO: Do as Error Handle?
                     fileTabPane.openFile(file);
+                    scrollSuggestions.setVisible(true);
                     break;
                 }
 
@@ -59,6 +86,7 @@ public class EditorWindow extends JFrame implements ActionListener {
 
                     if(file == null) return; // TODO: Do as Error Handle?
                     fileTabPane.openFile(file);
+                    scrollSuggestions.setVisible(true);
                     break;
                 }
 
@@ -76,6 +104,16 @@ public class EditorWindow extends JFrame implements ActionListener {
                     JavaCodeEditor editor = fileTabPane.getCurrentEditor();
                     file.write(editor.getText());
                     break;
+                }
+                case AUTOCOMPLETE: {
+                	CodeSuggestion[] c = giver.getSuggestions(fileTabPane.getCurrentEditor());
+                	StringBuffer s = new StringBuffer();
+                	for (int i = 0; i< c.length; i++) {
+                		s.append(c[i]+"\n");
+                	}
+                	s.delete(s.length()-1, s.length());
+                	suggestionBox.setText(s.toString());
+                	break;
                 }
 
                 case CLOSE_FILE: {
@@ -149,4 +187,5 @@ public class EditorWindow extends JFrame implements ActionListener {
             new ErrorDialog(e.getMessage());
         }
     }
+    
 }

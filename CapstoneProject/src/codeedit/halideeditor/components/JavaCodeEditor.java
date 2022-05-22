@@ -46,5 +46,9 @@ public class JavaCodeEditor extends JPanel {
     public String getText() {
         return codeEditor.getTextArea().getText();
     }
+    
+    public RTextScrollPane getCodeEditor() {
+		return codeEditor;
+	}
 
 }

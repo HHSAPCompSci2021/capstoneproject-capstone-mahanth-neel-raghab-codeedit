@@ -36,7 +36,7 @@ public class FileMenu extends Menu {
     /**
      * Symbolic constant for the action of saving all files.
      */
-    // public static final String SAVE_ALL_FILES = "Save All";
+   public static final String AUTOCOMPLETE = "Autocomplete";
     
     /**
      * Symbolic constant for the action of closing the current file.
@@ -59,7 +59,7 @@ public class FileMenu extends Menu {
         addMenuSeparator();
         addMenuItem(SAVE_FILE, KeyStroke.getKeyStroke('S', ACTION_KEY));
         addMenuItem(SAVE_FILE_AS, KeyStroke.getKeyStroke('S', ACTION_KEY | SHIFT_DOWN_MASK));
-        // addMenuItem(SAVE_ALL_FILES, KeyStroke.getKeyStroke('S', ACTION_KEY | ALT_DOWN_MASK));
+        addMenuItem(AUTOCOMPLETE, KeyStroke.getKeyStroke(' ', ACTION_KEY));
         addMenuSeparator();
         addMenuItem(CLOSE_FILE, KeyStroke.getKeyStroke('W', ACTION_KEY));
         addMenuItem(CLOSE_ALL_FILES, KeyStroke.getKeyStroke('W', ACTION_KEY | SHIFT_DOWN_MASK));
