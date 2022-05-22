@@ -20,6 +20,7 @@ import codeedit.halideeditor.utils.NativeOSUtils;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Arrays;
 
 import static codeedit.halideeditor.components.menus.FileMenu.*;
 import static codeedit.halideeditor.components.menus.FileRevealMenu.*;

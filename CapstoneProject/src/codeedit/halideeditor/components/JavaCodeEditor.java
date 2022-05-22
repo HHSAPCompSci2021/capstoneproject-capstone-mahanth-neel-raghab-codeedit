@@ -4,12 +4,12 @@ import static org.fife.ui.rsyntaxtextarea.SyntaxConstants.SYNTAX_STYLE_JAVA;
 
 import java.awt.BorderLayout;
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 import javax.swing.JPanel;
 
-=======
+//=======
 import org.fife.rsta.ac.LanguageSupportFactory;
->>>>>>> 8d418bff22138969126248092efc97365c701cd4
+//>>>>>>> 8d418bff22138969126248092efc97365c701cd4
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
 

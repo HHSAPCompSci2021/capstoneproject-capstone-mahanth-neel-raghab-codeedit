@@ -1,4 +1,5 @@
 package codeedit.halideeditor.utils;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -51,6 +52,7 @@ public class CompletionGiver {
 			}
 			k[i] = counter;
 		}
+		System.out.println(Arrays.toString(c));
 		this.s.fill(c, k);
 		return this.s.getSuggestions();
 	}

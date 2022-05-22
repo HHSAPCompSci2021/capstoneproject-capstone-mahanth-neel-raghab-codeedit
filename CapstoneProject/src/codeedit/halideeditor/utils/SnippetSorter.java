@@ -1,4 +1,6 @@
 package codeedit.halideeditor.utils;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
@@ -9,7 +11,7 @@ import java.util.TreeMap;
  *
  */
 public class SnippetSorter {
-	NavigableMap<Integer, CodeSuggestion> suggs;
+	NavigableMap<CodeSuggestion, Integer> suggs;
 
 	public SnippetSorter() {
 		suggs = new TreeMap<>();
@@ -23,13 +25,15 @@ public class SnippetSorter {
 	public void fill(CodeSuggestion[] suggestions, int[] occurences) {
 		suggs.clear();
 		for (int i = 0; i < suggestions.length; i++) {
-			suggs.put(occurences[i], suggestions[i]);
+			suggs.put(suggestions[i], occurences[i]);
 		}
 	}
 
-	private CodeSuggestion[] sort() {
-		suggs = suggs.descendingMap();
-		return suggs.values().toArray(CodeSuggestion[]::new);
+	private List<CodeSuggestion> sort() {
+		ArrayList<CodeSuggestion> returned = new ArrayList<>();
+		returned.addAll(suggs.keySet());
+		returned.sort((o1, o2) -> suggs.get(o2) - suggs.get(o1));
+		return returned;
 	}
 
 	public CodeSuggestion[] getSuggestions(int n) {
@@ -37,11 +41,13 @@ public class SnippetSorter {
 			n = suggs.size();
 		}
 
-		CodeSuggestion[] sortedSugs = sort();
 		CodeSuggestion[] result = new CodeSuggestion[n];
-
-		for (int i = 0; i < n; i++) {
-			result[i] = sortedSugs[i];
+		int i =0;
+		for (CodeSuggestion c : sort()) {
+			if (i==n)
+				break;
+			result[i]=c;
+			i++;
 		}
 		
 		return result;
@@ -49,10 +55,10 @@ public class SnippetSorter {
 
 	public CodeSuggestion[] getSuggestions() {
 		CodeSuggestion[] result = new CodeSuggestion[suggs.size()];
-		CodeSuggestion[] sortedSugs = sort();
-
-		for (int i = 0; i < result.length; i++) {
-			result[i] = sortedSugs[i];
+		int i =0;
+		for (CodeSuggestion c : sort()) {
+			result[i]=c;
+			i++;
 		}
 
 		return result;
