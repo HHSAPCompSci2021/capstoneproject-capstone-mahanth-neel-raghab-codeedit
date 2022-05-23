@@ -4,7 +4,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Contains data and functions relating to the reading and writing of files.

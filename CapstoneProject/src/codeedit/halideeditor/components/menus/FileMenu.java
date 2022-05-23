@@ -59,7 +59,7 @@ public class FileMenu extends Menu {
         addMenuSeparator();
         addMenuItem(SAVE_FILE, KeyStroke.getKeyStroke('S', ACTION_KEY));
         addMenuItem(SAVE_FILE_AS, KeyStroke.getKeyStroke('S', ACTION_KEY | SHIFT_DOWN_MASK));
-        addMenuItem(AUTOCOMPLETE, KeyStroke.getKeyStroke('U', ACTION_KEY | SHIFT_DOWN_MASK));
+        addMenuItem(AUTOCOMPLETE, KeyStroke.getKeyStroke('H', ACTION_KEY));
         addMenuSeparator();
         addMenuItem(CLOSE_FILE, KeyStroke.getKeyStroke('W', ACTION_KEY));
         addMenuItem(CLOSE_ALL_FILES, KeyStroke.getKeyStroke('W', ACTION_KEY | SHIFT_DOWN_MASK));

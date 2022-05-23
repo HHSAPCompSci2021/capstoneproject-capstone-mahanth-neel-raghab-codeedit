@@ -12,6 +12,7 @@ import codeedit.halideeditor.components.FileTabPane;
 import codeedit.halideeditor.components.JavaCodeEditor;
 import codeedit.halideeditor.components.JavaFileChooser;
 import codeedit.halideeditor.components.MenuBar;
+import codeedit.halideeditor.components.SuggestionDialog;
 import codeedit.halideeditor.utils.CodeSuggestion;
 import codeedit.halideeditor.utils.CompletionGiver;
 import codeedit.halideeditor.models.EditorFile;
@@ -20,15 +21,12 @@ import codeedit.halideeditor.utils.NativeOSUtils;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.Arrays;
-
 import static codeedit.halideeditor.components.menus.FileMenu.*;
 import static codeedit.halideeditor.components.menus.FileRevealMenu.*;
 import static codeedit.halideeditor.components.menus.NavigateMenu.*;
 
 import java.awt.BorderLayout;
 import java.awt.Desktop;
-import java.awt.Dimension;
 
 /**
  * Composes the layout of the {@code EditorWindow} and handles all application
@@ -42,8 +40,7 @@ public class EditorWindow extends JFrame implements ActionListener {
      * The {@code FileTabPane} managing all files for the {@code EditorWindow}.
      */
     private FileTabPane fileTabPane;
-    private JTextArea suggestionBox;
-    private JScrollPane scrollSuggestions;
+    private SuggestionDialog sugsDropDown;
     private CompletionGiver giver;
 
     /**
@@ -57,13 +54,6 @@ public class EditorWindow extends JFrame implements ActionListener {
         this.setLayout(new BorderLayout());
         fileTabPane = new FileTabPane();
         add(fileTabPane);
-        suggestionBox = new JTextArea();
-        suggestionBox.setEditable(false);
-        scrollSuggestions = new JScrollPane(suggestionBox, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollSuggestions.setPreferredSize(new Dimension(500, 100));
-        scrollSuggestions.setVisible(false);
-        add(scrollSuggestions, BorderLayout.SOUTH);
         giver = new CompletionGiver();
     }
 
@@ -77,7 +67,6 @@ public class EditorWindow extends JFrame implements ActionListener {
                     if (file == null)
                         return; // TODO: Do as Error Handle?
                     fileTabPane.openFile(file);
-                    scrollSuggestions.setVisible(true);
                     break;
                 }
 
@@ -87,8 +76,6 @@ public class EditorWindow extends JFrame implements ActionListener {
                     if (file == null)
                         return; // TODO: Do as Error Handle?
                     fileTabPane.openFile(file);
-                    
-                    scrollSuggestions.setVisible(true);
                     break;
                 }
 
@@ -100,6 +87,7 @@ public class EditorWindow extends JFrame implements ActionListener {
                     giver.update(editor);
                     break;
                 }
+
                 case SAVE_FILE_AS: {
                     EditorFile file = new JavaFileChooser().saveAction();
 
@@ -110,14 +98,11 @@ public class EditorWindow extends JFrame implements ActionListener {
                     file.write(editor.getText());
                     break;
                 }
+
                 case AUTOCOMPLETE: {
-                    CodeSuggestion[] c = giver.getSuggestions(fileTabPane.getCurrentEditor());
-                    StringBuffer s = new StringBuffer();
-                    for (int i = 0; i < c.length; i++) {
-                        s.append(c[i] + "\n");
-                    }
-                    
-                    suggestionBox.setText(s.substring(0, s.length() - 1));
+                    JavaCodeEditor editor = fileTabPane.getCurrentEditor();
+                    CodeSuggestion[] sugs = giver.getSuggestions(editor);
+                    sugsDropDown = new SuggestionDialog(sugs, 7, editor);
                     break;
                 }
 
@@ -186,7 +171,6 @@ public class EditorWindow extends JFrame implements ActionListener {
                     fileTabPane.switchToTab(7);
                     break;
                 }
-
             }
         } catch (Exception e) {
             new ErrorDialog(e.getMessage());
