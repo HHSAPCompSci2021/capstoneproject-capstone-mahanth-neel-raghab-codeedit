@@ -116,8 +116,11 @@ public class CompletionGiver {
 			}
 		}
 		
-		for (int i = 0; i < CodeDict.JAVA_KEYWORDS.length; i++) {
-			provider.addCompletion(new BasicCompletion(provider, CodeDict.JAVA_KEYWORDS[i]));
+		for (String s : CodeDict.JAVA_KEYWORDS) {
+			provider.addCompletion(new BasicCompletion(provider, s));
+		}
+		for (String s : CodeDict.SNIPPETS) {
+			provider.addCompletion(new BasicCompletion(provider, s));
 		}
 
 		this.provider = provider;

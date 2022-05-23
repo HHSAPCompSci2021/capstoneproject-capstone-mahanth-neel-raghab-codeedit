@@ -14,4 +14,5 @@ public class CodeDict {
 			"try", "void", "volatile", "while" };
 	public static ArrayList<String> METHODS = new ArrayList<>();
 	public static ArrayList<String> FIELDS = new ArrayList<>();
+	public static ArrayList<String> SNIPPETS = new ArrayList<>();
 }

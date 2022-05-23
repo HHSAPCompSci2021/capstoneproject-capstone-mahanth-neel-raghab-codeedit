@@ -1,8 +1,12 @@
 package codeedit.halideeditor.core;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.KeyStroke;
 
 import org.fife.rsta.ac.LanguageSupportFactory;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -12,6 +16,7 @@ import codeedit.halideeditor.components.FileTabPane;
 import codeedit.halideeditor.components.JavaCodeEditor;
 import codeedit.halideeditor.components.JavaFileChooser;
 import codeedit.halideeditor.components.MenuBar;
+import codeedit.halideeditor.utils.CodeDict;
 import codeedit.halideeditor.utils.CodeSuggestion;
 import codeedit.halideeditor.utils.CompletionGiver;
 import codeedit.halideeditor.models.EditorFile;
@@ -21,8 +26,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import static codeedit.halideeditor.components.menus.FileMenu.*;
+import static codeedit.halideeditor.components.menus.SettingsMenu.*;
+import static codeedit.halideeditor.utils.NativeOSUtils.ACTION_KEY;
 import static codeedit.halideeditor.components.menus.FileRevealMenu.*;
 import static codeedit.halideeditor.components.menus.NavigateMenu.*;
 
@@ -45,6 +54,7 @@ public class EditorWindow extends JFrame implements ActionListener {
     private JTextArea suggestionBox;
     private JScrollPane scrollSuggestions;
     private CompletionGiver giver;
+    private HashMap<String, JMenuItem> controls;
 
     /**
      * Creates a new {@code EditorWindow} with the standard layout.
@@ -53,7 +63,8 @@ public class EditorWindow extends JFrame implements ActionListener {
         super("HalideEditor");
         if (!NativeOSUtils.isMac())
             setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setJMenuBar(new MenuBar(this));
+        controls=new HashMap<>();
+        setJMenuBar(new MenuBar(this, controls));
         this.setLayout(new BorderLayout());
         fileTabPane = new FileTabPane();
         add(fileTabPane);
@@ -78,6 +89,7 @@ public class EditorWindow extends JFrame implements ActionListener {
                         return; // TODO: Do as Error Handle?
                     fileTabPane.openFile(file);
                     scrollSuggestions.setVisible(true);
+                    giver.update(fileTabPane.getCurrentEditor());
                     break;
                 }
 
@@ -89,6 +101,7 @@ public class EditorWindow extends JFrame implements ActionListener {
                     fileTabPane.openFile(file);
                     
                     scrollSuggestions.setVisible(true);
+                    giver.update(fileTabPane.getCurrentEditor());
                     break;
                 }
 
@@ -185,6 +198,41 @@ public class EditorWindow extends JFrame implements ActionListener {
                 case SWITCH_TO_EIGHTH_TAB: {
                     fileTabPane.switchToTab(7);
                     break;
+                }
+                case CONTROLS: {
+                	String s = (String)JOptionPane.showInputDialog(this,
+                            "Which command will be overwritten",
+                            "Save");
+                	if (controls.containsKey(s)) {
+                		String l = (String)JOptionPane.showInputDialog(this,
+                                "Enter replacement",
+                                "S");
+                		if (l.toCharArray().length==1) {
+                			controls.get(s).setAccelerator(KeyStroke.getKeyStroke(Character.toUpperCase(l.toCharArray()[0]), ACTION_KEY));
+                		}
+                		else {
+                			JOptionPane.showMessageDialog(this,
+                				    "Must be a single letter",
+                				    "Inane warning",
+                				    JOptionPane.WARNING_MESSAGE);
+                		}
+                	}
+                	else {
+                		JOptionPane.showMessageDialog(this,
+            				    "Command not found",
+            				    "Inane warning",
+            				    JOptionPane.WARNING_MESSAGE);
+                	}
+                	break;
+                }
+                
+                case AUTOCOMPLETES: {
+                	String s = (String)JOptionPane.showInputDialog(this,
+                            "Enter phrase to be autocompleted",
+                            "Custom Autocompletion");
+                	CodeDict.SNIPPETS.add(s);
+                	giver.update(fileTabPane.getCurrentEditor());
+                	break;
                 }
 
             }
