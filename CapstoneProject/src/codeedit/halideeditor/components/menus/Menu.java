@@ -33,21 +33,22 @@ public abstract class Menu extends JMenu {
      * @param name the name of the menu item
      * @param keyBinding the key binding for the corresponding menu item's action
      */
-    public void addMenuItem(String name, KeyStroke keyBinding) {
+    public JMenuItem addMenuItem(String name, KeyStroke keyBinding) {
         JMenuItem item = new JMenuItem(name);
         item.addActionListener(handler);
 
         if (keyBinding != null) item.setAccelerator(keyBinding);
 
         add(item);
+        return item;
     }
     
     /**
      * Adds a new menu item with the specified name and no key binding.
      * @param name the name of the menu item
      */
-    public void addMenuItem(String name) {
-        addMenuItem(name, null);
+    public JMenuItem addMenuItem(String name) {
+        return addMenuItem(name, null);
     }
 
     /**

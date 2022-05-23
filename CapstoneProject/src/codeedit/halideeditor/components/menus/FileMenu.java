@@ -1,7 +1,9 @@
 package codeedit.halideeditor.components.menus;
 
 import java.awt.event.ActionListener;
+import java.util.Map;
 
+import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import static java.awt.event.InputEvent.SHIFT_DOWN_MASK;
@@ -52,17 +54,17 @@ public class FileMenu extends Menu {
      * Creates a new {@code FileMenu} with the specified handler.
      * @param handler the handler for all menu actions
      */
-    public FileMenu(ActionListener handler) {
+    public FileMenu(ActionListener handler, Map<String, JMenuItem> m) {
         super("File", handler);
-        addMenuItem(NEW_FILE, KeyStroke.getKeyStroke('N', ACTION_KEY));
-        addMenuItem(OPEN_FILE, KeyStroke.getKeyStroke('O', ACTION_KEY));
+        m.put(NEW_FILE, addMenuItem(NEW_FILE, KeyStroke.getKeyStroke('N', ACTION_KEY)));
+        m.put(OPEN_FILE, addMenuItem(OPEN_FILE, KeyStroke.getKeyStroke('O', ACTION_KEY)));
         addMenuSeparator();
-        addMenuItem(SAVE_FILE, KeyStroke.getKeyStroke('S', ACTION_KEY));
-        addMenuItem(SAVE_FILE_AS, KeyStroke.getKeyStroke('S', ACTION_KEY | SHIFT_DOWN_MASK));
-        addMenuItem(AUTOCOMPLETE, KeyStroke.getKeyStroke('H', ACTION_KEY));
+        m.put(SAVE_FILE, addMenuItem(SAVE_FILE, KeyStroke.getKeyStroke('S', ACTION_KEY)));
+        m.put(SAVE_FILE_AS, addMenuItem(SAVE_FILE_AS, KeyStroke.getKeyStroke('S', ACTION_KEY | SHIFT_DOWN_MASK)));
+        m.put(AUTOCOMPLETE, addMenuItem(AUTOCOMPLETE, KeyStroke.getKeyStroke('U', ACTION_KEY | SHIFT_DOWN_MASK)));
         addMenuSeparator();
-        addMenuItem(CLOSE_FILE, KeyStroke.getKeyStroke('W', ACTION_KEY));
-        addMenuItem(CLOSE_ALL_FILES, KeyStroke.getKeyStroke('W', ACTION_KEY | SHIFT_DOWN_MASK));
+        m.put(CLOSE_FILE, addMenuItem(CLOSE_FILE, KeyStroke.getKeyStroke('W', ACTION_KEY)));
+        m.put(CLOSE_ALL_FILES, addMenuItem(CLOSE_ALL_FILES, KeyStroke.getKeyStroke('W', ACTION_KEY | SHIFT_DOWN_MASK)));
         addMenuSeparator();
         addSubMenu(new FileRevealMenu(handler));
     }

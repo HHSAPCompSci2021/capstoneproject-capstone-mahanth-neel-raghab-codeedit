@@ -1,9 +1,12 @@
 package codeedit.halideeditor.components.menus;
 
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 import static codeedit.halideeditor.utils.NativeOSUtils.ACTION_KEY;
 import static java.awt.event.InputEvent.SHIFT_DOWN_MASK;
+
+import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 /**
@@ -41,14 +44,14 @@ public class EditMenu extends Menu {
      * Creates a new {@code EditMenu} with the specified handler.
      * @param handler the handler for all menu actions
      */
-    public EditMenu(ActionListener handler) {
+    public EditMenu(ActionListener handler, Map<String, JMenuItem> m) {
         super("Edit", handler);
-        addMenuItem(CUT, KeyStroke.getKeyStroke('X', ACTION_KEY));
-        addMenuItem(COPY, KeyStroke.getKeyStroke('C', ACTION_KEY));
-        addMenuItem(PASTE, KeyStroke.getKeyStroke('V', ACTION_KEY));
+        m.put(CUT, addMenuItem(CUT, KeyStroke.getKeyStroke('X', ACTION_KEY)));
+        m.put(COPY, addMenuItem(COPY, KeyStroke.getKeyStroke('C', ACTION_KEY)));
+        m.put(PASTE, addMenuItem(PASTE, KeyStroke.getKeyStroke('V', ACTION_KEY)));
         addMenuSeparator();
-        addMenuItem(UNDO, KeyStroke.getKeyStroke('Z', ACTION_KEY));
-        addMenuItem(REDO, KeyStroke.getKeyStroke('Z',  ACTION_KEY | SHIFT_DOWN_MASK));
+        m.put(UNDO, addMenuItem(UNDO, KeyStroke.getKeyStroke('Z', ACTION_KEY)));
+        m.put(REDO, addMenuItem(REDO, KeyStroke.getKeyStroke('Z',  ACTION_KEY | SHIFT_DOWN_MASK)));
     }
 
 }
