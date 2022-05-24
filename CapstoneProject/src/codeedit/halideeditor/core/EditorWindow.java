@@ -49,6 +49,7 @@ public class EditorWindow extends JFrame implements ActionListener {
      * The {@code FileTabPane} managing all files for the {@code EditorWindow}.
      */
     private FileTabPane fileTabPane;
+    private SuggestionDialog sugsDialog;
     private CompletionGiver giver;
     private HashMap<String, JMenuItem> controls;
 
@@ -116,7 +117,7 @@ public class EditorWindow extends JFrame implements ActionListener {
                     }
 
                     CodeSuggestion[] sugs = giver.getSuggestions(editor);
-                    new SuggestionDialog(sugs, 5, editor);
+                    sugsDialog = new SuggestionDialog(sugs, 5, editor);
                     break;
                 }
 
