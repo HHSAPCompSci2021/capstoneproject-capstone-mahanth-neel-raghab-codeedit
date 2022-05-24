@@ -26,15 +26,30 @@ import codeedit.halideeditor.components.JavaCodeEditor;
  * @version 05/22/2022
  */
 public class CompletionGiver {
+	/**
+	 * The corresponding {@code CompletionProvider}.
+	 */
 	private CompletionProvider provider;
+	
+	/**
+	 * The corresponding {@code AutoCompletion} tool.
+	 */
 	AutoCompletion ac;
+
+	/**
+	 * The corresponding {@code SnippetSorter}/
+	 */
 	SnippetSorter s;
 
+	/**
+	 * Creates a new {@code CompletionGiver} object.
+	 */
 	public CompletionGiver() {
 		provider = createCompletionProvider();
 		s = new SnippetSorter();
 	}
 
+	@Override
 	public CodeSuggestion[] getSuggestions(JavaCodeEditor textArea) {
 		List<Completion> comps = provider.getCompletions(textArea.getCodeEditor().getTextArea());
 		CodeSuggestion[] c = new CodeSuggestion[comps.size()];
@@ -58,6 +73,7 @@ public class CompletionGiver {
 		return this.s.getSuggestions();
 	}
 
+	@Override
 	private CompletionProvider createCompletionProvider() {
 		DefaultCompletionProvider provider = new DefaultCompletionProvider();
 		for (String sug : CodeDict.JAVA_KEYWORDS) {
@@ -67,6 +83,7 @@ public class CompletionGiver {
 		return provider;
 	}
 
+	@Override
 	private int getType(String s) {
 		for (String k : CodeDict.JAVA_KEYWORDS) {
 			if (k.equals(s))
@@ -82,6 +99,7 @@ public class CompletionGiver {
 		return 0;
 	}
 
+	@Override
 	public void update(JavaCodeEditor textArea) {
 		DefaultCompletionProvider provider = new DefaultCompletionProvider();
 		LanguageSupportFactory lsf = LanguageSupportFactory.get();
