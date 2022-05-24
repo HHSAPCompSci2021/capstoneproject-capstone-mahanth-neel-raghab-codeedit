@@ -1,52 +1,57 @@
 package codeedit.halideeditor.components;
 
-import javax.swing.JMenuItem;
+import java.awt.Dimension;
+import java.awt.Point;
+
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 
 import codeedit.halideeditor.utils.CodeSuggestion;
 
+/**
+ * A class that is responsible for the SuggestionDialog that pops up when the user tries to autocomplete
+ * @author Mahanth Mohan
+ * @version 05/23/2022
+ */
 public class SuggestionDialog extends JPopupMenu {
     private JavaCodeEditor editor;
-
+    private JScrollPane scrollPane;
+    
     public SuggestionDialog(JavaCodeEditor editor) {
         super();
         this.editor = editor;
+        scrollPane = new JScrollPane();
         setLocation(0, 0);
+        setSize(new Dimension(50, 75));
         setVisible(true);
     }
 
     public SuggestionDialog(CodeSuggestion[] sugs, int numSugs, JavaCodeEditor editor) {
         super("Code Completions");
         this.editor = editor;
-        setLocation(editor.getDialogLocation(50, 20));
+        scrollPane = new JScrollPane(this);
+
+        setSize(new Dimension(125, 62));
+        Point cursorPos = editor.getCursorPosition();
+        Point dialogPos = new Point((int) cursorPos.getX() + getWidth() / 3, (int) (cursorPos.getY() + 0.5 * editor.getLineHeight() + 2 * getHeight()));
+       
+        if (numSugs > sugs.length) {
+            numSugs = sugs.length;
+        }
+        
         for (int i = 0; i < numSugs; i++) {
-            add(new JMenuItem(sugs[i].toString()));
+            add(new SugItem(this, sugs[i].toString()));
         }
 
+        setLocation(dialogPos);
         setVisible(true);
     }
-
+    
     public void complete(String suggestion) {
         String code = editor.getText();
-        int line = editor.getCurrentLine();
-        int cursorPos = editor.getCaretPosition();
-        String[] lines = code.split("\n");
-        StringBuilder contents = new StringBuilder();
-
-        for (int i = 0; i < lines.length; i++) {
-            if (i == line) {
-                String curLine = lines[i];
-                String completed = curLine.substring(0, cursorPos) + suggestion + curLine.substring(cursorPos + 1);
-                contents.append(completed + "\n");
-            } else {
-                contents.append(lines[i] + "\n");
-            }
-        }
-
-        editor.setText(contents.substring(0, contents.length() - 1));
-    }
-
-    public JavaCodeEditor getEditor() {
-        return editor;
+        int curPos = editor.getCaretPosition();
+        code = code.substring(0, curPos) + suggestion + code.substring(curPos);
+        editor.setText(code);
+        editor.setCursorPosition(curPos);
     }
 }

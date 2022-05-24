@@ -12,6 +12,7 @@ public class CodeDict {
 			"return", "short", "static", "strictfp", "super", "switch",
 			"synchronized", "this", "throw", "throws", "transient", "true",
 			"try", "void", "volatile", "while" };
+
 	public static ArrayList<String> METHODS = new ArrayList<>();
 	public static ArrayList<String> FIELDS = new ArrayList<>();
 	public static ArrayList<String> SNIPPETS = new ArrayList<>();

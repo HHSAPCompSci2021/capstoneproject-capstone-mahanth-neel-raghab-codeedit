@@ -49,7 +49,6 @@ public class EditorWindow extends JFrame implements ActionListener {
      * The {@code FileTabPane} managing all files for the {@code EditorWindow}.
      */
     private FileTabPane fileTabPane;
-    private SuggestionDialog sugsDropDown;
     private CompletionGiver giver;
     private HashMap<String, JMenuItem> controls;
 
@@ -112,8 +111,12 @@ public class EditorWindow extends JFrame implements ActionListener {
 
                 case AUTOCOMPLETE: {
                     JavaCodeEditor editor = fileTabPane.getCurrentEditor();
+                    if (editor == null) {
+                        return;
+                    }
+
                     CodeSuggestion[] sugs = giver.getSuggestions(editor);
-                    sugsDropDown = new SuggestionDialog(sugs, 7, editor);
+                    new SuggestionDialog(sugs, 5, editor);
                     break;
                 }
 

@@ -61,7 +61,7 @@ public class FileMenu extends Menu {
         addMenuSeparator();
         m.put(SAVE_FILE, addMenuItem(SAVE_FILE, KeyStroke.getKeyStroke('S', ACTION_KEY)));
         m.put(SAVE_FILE_AS, addMenuItem(SAVE_FILE_AS, KeyStroke.getKeyStroke('S', ACTION_KEY | SHIFT_DOWN_MASK)));
-        m.put(AUTOCOMPLETE, addMenuItem(AUTOCOMPLETE, KeyStroke.getKeyStroke('U', ACTION_KEY | SHIFT_DOWN_MASK)));
+        m.put(AUTOCOMPLETE, addMenuItem(AUTOCOMPLETE, KeyStroke.getKeyStroke('M', ACTION_KEY)));
         addMenuSeparator();
         m.put(CLOSE_FILE, addMenuItem(CLOSE_FILE, KeyStroke.getKeyStroke('W', ACTION_KEY)));
         m.put(CLOSE_ALL_FILES, addMenuItem(CLOSE_ALL_FILES, KeyStroke.getKeyStroke('W', ACTION_KEY | SHIFT_DOWN_MASK)));

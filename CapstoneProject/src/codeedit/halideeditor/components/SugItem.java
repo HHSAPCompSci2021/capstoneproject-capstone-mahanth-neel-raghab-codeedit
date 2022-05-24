@@ -1,21 +1,25 @@
 package codeedit.halideeditor.components;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.Component;
 import javax.swing.JMenuItem;
 
-public class SugItem extends JMenuItem implements ActionListener {
-    public SugItem(String suggestion) {
-        super(suggestion);
-    }
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Component c = getParent();
-        if (c instanceof SuggestionDialog) {
-            SuggestionDialog dialog = (SuggestionDialog) c;
-            dialog.complete(e.getActionCommand());
-        } 
+public class SugItem extends JMenuItem {
+    public static final Color SELECTED = new Color(212, 212, 212); 
+
+    public SugItem(SuggestionDialog dialog, String suggestion) {
+        super(suggestion);
+        setSize(dialog.getWidth(), getHeight());
+        addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Color prev = getBackground();
+                setBackground(SELECTED);
+                dialog.complete(suggestion);
+                setBackground(prev);
+                getParent().setVisible(false);
+            }
+        });
     }
 }

@@ -9,9 +9,6 @@ import javax.swing.JPanel;
 import org.fife.rsta.ac.LanguageSupportFactory;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
-import org.fife.ui.rtextarea.RTextArea;
-
-import codeedit.halideeditor.utils.CodeDict;
 import java.awt.Point;
 
 /**
@@ -59,23 +56,40 @@ public class JavaCodeEditor extends JPanel {
         return codeEditor.getTextArea().getText();
     }
 
+    /**
+     * Gets the code editor contained within this widget
+     * @return the code editor contained within this widget
+
+     */
     public RTextScrollPane getCodeEditor() {
         return codeEditor;
     }
 
-    public int getCurrentLine() {
-        return codeEditor.getTextArea().getCaretLineNumber();
+    /**
+     * Sets the cursor to the given position
+     * @param pos the position offset from the start
+     */
+    public void setCursorPosition(int pos) {
+        codeEditor.getTextArea().setCaretPosition(pos);
     }
 
+    /**
+     * Gets the current position of the cursor
+     * @return the position of the cursor with respect to the start of the textarea
+     */
     public int getCaretPosition() {
         return codeEditor.getTextArea().getCaretPosition();
     }
 
-    public Point getDialogLocation(int dialogWidth, int verOffset) {
-        RTextArea area = codeEditor.getTextArea();
-        int x = area.getX() + area.getWidth() - dialogWidth;
-        int y = area.getY() + verOffset;
-        
-        return new Point(x, y);
+    /**
+     * Gets the position of the cursor with respect to the window
+     * @return the point with (x, y) coordinates representing the cursor's position
+     */
+    public Point getCursorPosition() {
+        return codeEditor.getTextArea().getCaret().getMagicCaretPosition();
+    }
+
+    public int getLineHeight() {
+        return codeEditor.getTextArea().getLineHeight();
     }
 }

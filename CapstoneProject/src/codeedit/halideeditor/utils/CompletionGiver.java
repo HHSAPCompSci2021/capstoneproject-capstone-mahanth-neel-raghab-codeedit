@@ -1,4 +1,5 @@
 package codeedit.halideeditor.utils;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -115,7 +116,7 @@ public class CompletionGiver {
 				}
 			}
 		}
-		
+
 		for (String s : CodeDict.JAVA_KEYWORDS) {
 			provider.addCompletion(new BasicCompletion(provider, s));
 		}
