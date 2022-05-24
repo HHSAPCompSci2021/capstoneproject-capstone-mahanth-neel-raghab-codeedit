@@ -50,7 +50,11 @@ public class CompletionGiver {
 		provider = createCompletionProvider();
 		s = new SnippetSorter();
 	}
-
+	/**
+	 * gives all the suggestions, in sorted order
+	 * @param textArea the textArea to get the suggestions from
+	 * @return a sorted array of the suggestions from most to least used
+	 */
 	public CodeSuggestion[] getSuggestions(JavaCodeEditor textArea) {
 		List<Completion> comps = provider.getCompletions(textArea.getCodeEditor().getTextArea());
 		CodeSuggestion[] c = new CodeSuggestion[comps.size()];
@@ -73,7 +77,10 @@ public class CompletionGiver {
 		this.s.fill(c, k);
 		return this.s.getSuggestions();
 	}
-
+	/**
+	 * creates the completion provider
+	 * @return the created completion provider
+	 */
 	private CompletionProvider createCompletionProvider() {
 		DefaultCompletionProvider provider = new DefaultCompletionProvider();
 		for (String sug : CodeDict.JAVA_KEYWORDS) {
@@ -82,7 +89,11 @@ public class CompletionGiver {
 
 		return provider;
 	}
-
+	/**
+	 * returns the type of a given snippet
+	 * @param s the snippet given
+	 * @return the type of the snippet
+	 */
 	private int getType(String s) {
 		for (String k : CodeDict.JAVA_KEYWORDS) {
 			if (k.equals(s))
@@ -97,7 +108,10 @@ public class CompletionGiver {
 
 		return 0;
 	}
-
+	/**
+	 * updates the provider with any new information
+	 * @param textArea the textArea to get the suggestions from
+	 */
 	public void update(JavaCodeEditor textArea) {
 		DefaultCompletionProvider provider = new DefaultCompletionProvider();
 		LanguageSupportFactory lsf = LanguageSupportFactory.get();
