@@ -33,7 +33,7 @@ public class SuggestionDialog extends JPopupMenu {
 
         setSize(new Dimension(125, 62));
         Point cursorPos = editor.getCursorPosition();
-        Point dialogPos = new Point((int) cursorPos.getX() + getWidth() / 3, (int) (cursorPos.getY() + 0.5 * editor.getLineHeight() + 2 * getHeight()));
+        Point dialogPos = new Point((int) cursorPos.getX(), (int) cursorPos.getY());
        
         if (numSugs > sugs.length) {
             numSugs = sugs.length;
@@ -43,7 +43,7 @@ public class SuggestionDialog extends JPopupMenu {
             add(new SugItem(this, sugs[i].toString()));
         }
 
-        setLocation(dialogPos);
+        setLocation(cursorPos);
         setVisible(true);
     }
     

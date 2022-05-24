@@ -1,7 +1,5 @@
 package codeedit.halideeditor.utils;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
