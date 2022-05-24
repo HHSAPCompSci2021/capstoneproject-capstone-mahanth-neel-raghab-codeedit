@@ -1,4 +1,4 @@
-package codeedit.halideeditor.utils;
+package codeedit.halideeditor.models;
 
 public class CodeSuggestion implements Comparable<CodeSuggestion> {
 	private String name;

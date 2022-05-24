@@ -17,9 +17,9 @@ import codeedit.halideeditor.components.JavaCodeEditor;
 import codeedit.halideeditor.components.JavaFileChooser;
 import codeedit.halideeditor.components.MenuBar;
 import codeedit.halideeditor.components.SuggestionDialog;
-import codeedit.halideeditor.utils.CodeDict;
-import codeedit.halideeditor.utils.CodeSuggestion;
-import codeedit.halideeditor.utils.CompletionGiver;
+import codeedit.halideeditor.models.CodeDict;
+import codeedit.halideeditor.models.CodeSuggestion;
+import codeedit.halideeditor.logic.CompletionGiver;
 import codeedit.halideeditor.models.EditorFile;
 import codeedit.halideeditor.utils.NativeOSUtils;
 

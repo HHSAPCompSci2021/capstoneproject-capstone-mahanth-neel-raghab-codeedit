@@ -6,7 +6,7 @@ import java.awt.Point;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
-import codeedit.halideeditor.utils.CodeSuggestion;
+import codeedit.halideeditor.models.CodeSuggestion;
 
 /**
  * A class that is responsible for the SuggestionDialog that pops up when the user tries to autocomplete

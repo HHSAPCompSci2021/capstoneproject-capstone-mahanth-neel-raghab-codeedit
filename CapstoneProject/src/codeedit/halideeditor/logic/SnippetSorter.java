@@ -1,7 +1,9 @@
-package codeedit.halideeditor.utils;
+package codeedit.halideeditor.logic;
 
 import java.util.NavigableMap;
 import java.util.TreeMap;
+
+import codeedit.halideeditor.models.CodeSuggestion;
 
 /**
  * Sorts the possible completions

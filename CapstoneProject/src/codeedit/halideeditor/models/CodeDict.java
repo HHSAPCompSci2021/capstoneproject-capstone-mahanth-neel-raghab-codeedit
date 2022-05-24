@@ -1,4 +1,4 @@
-package codeedit.halideeditor.utils;
+package codeedit.halideeditor.models;
 
 import java.util.ArrayList;
 /**
